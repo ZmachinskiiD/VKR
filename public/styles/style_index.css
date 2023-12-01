@@ -1,0 +1,124 @@
+
+.films{
+  /* background-color: #E7A04E; */
+  overflow-y: hidden;
+  display: grid;
+  grid-row-gap: 30px;
+  margin-top:40px ;
+  /* margin-left:46px ; */
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  /* align-items: center; */
+  justify-items: center;
+
+}
+.movie{
+  /* border-radius: 20px; */
+  height: 700px;
+  width: 370px;
+  background-color: white;
+  display:grid;
+  /* overflow: hidden; */
+  /*grid:rows 439px auto;*/
+}
+.poster{
+  height:439px;
+  width: 407px;
+}
+.movie_info{
+  display:grid;
+  width: inherit;
+  grid-template-rows: 110px auto 40px;
+}
+.rus_name{
+  margin-left: 20px;
+  margin-right: 20px;
+  font-family: Open Sans;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: 0em;
+  text-align: left;
+ overflow-x: auto;
+
+}
+.en_name{
+color: #999;
+margin-left: 20px;
+font-family: Open Sans;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+.description{
+  display: -webkit-box;
+  margin-left: 20px;
+  height: 90px;
+  max-width: 330px;
+  font-family: Open Sans;
+  font-weight: 600;
+  letter-spacing: 0em;
+  text-align: left;
+  font-size: 10px;
+  -webkit-line-clamp: 9;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.footer{
+  display: grid;
+  grid-template-columns: 30px 120px 179px;
+  grid-row-gap: 10px;
+  font-family: Open Sans;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0em;
+  text-align: right;
+  color:#CCCCCC
+
+}
+.movie_container
+{
+  display: grid;
+  border-radius: 20px;
+  grid-template-columns: 1fr;
+  overflow:hidden;
+  height: 700px;
+  width: 370px;
+}
+.effect{
+  height: 700px;
+  width: 370px;
+  display: flex;
+  align-items:  center;
+  justify-content:  center;
+  background-color: rgba(24, 10, 10, 0.7);
+}
+.movie_container:hover{
+  grid-template-areas: "overlap";
+}
+.movie_container:hover .movie{
+  grid-area: overlap;
+  align-self: center;
+  justify-self: center;
+}
+.movie_container:hover .effect{
+  grid-area: overlap;
+  align-self: center;
+  justify-self: center;
+}
+.more{
+  background-color: #12C584;
+  font-family: Open Sans;
+  color:#FFFFFF;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 56px;
+  word-wrap: break-word;
+  border-radius: 10px;
+  border-style: solid;
+  }
+
+

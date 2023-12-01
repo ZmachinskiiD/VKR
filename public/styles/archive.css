@@ -1,0 +1,16 @@
+.photo_list{
+    /* background-color: #E7A04E; */
+    overflow-y: hidden;
+    display: grid;
+    grid-row-gap: 30px;
+    margin-top:40px ;
+    /* margin-left:46px ; */
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    /* align-items: center; */
+    justify-items: center;
+
+}
+.archive_photo
+{
+    width:300px;
+}

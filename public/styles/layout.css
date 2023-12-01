@@ -1,0 +1,103 @@
+body{
+    margin: 0;
+    display: grid;
+    background-color:rgb(151, 149, 149);
+    grid-template-columns: 20% auto;
+}
+.search_bar
+{
+    top: 0;
+    position: sticky;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    overflow: hidden;
+    height:100vh;
+    background-color: rgb(66, 64, 61);
+}
+.logo-link{
+    display:block;
+    margin-top: 40px;
+    margin-left: 30px;
+    /*overflow: hidden;*/
+    color:wheat;
+    white-space: nowrap;
+    font-family:Open Sans;
+    text-overflow: ellipsis;
+
+
+}
+.sidebar_menu{
+
+    background-color: rgb(66, 64, 61);
+    margin-left: 15px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+.menu-item{
+    list-style-type: none;
+}
+.menu-link{
+    box-sizing: border-box;
+    display:flex;
+    align-items: center;
+    height:70px;
+    padding:15px;
+    color:#B7B7B7;
+    font-family:Open Sans;
+    font-size:18px;
+    font-weight:600;
+    line-height: 1.2;
+    text-transform:uppercase ;
+    text-decoration: none;
+    border-bottom:2px solid rgba(242,242,242,0.1);
+    transition: 1s;
+}
+.menu-link:hover,
+.menu-link.active{
+    color:white;
+    background:rgba(255,255,255,0.05) ;
+}
+.menu-item:last-of-type .menu-link{
+    border-bottom:none
+}
+.menu{
+    top: 0;
+    background-color: rgb(225, 234, 234);
+    align-self: start;
+    position: sticky;
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+.search_film{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.search_film input{
+    height:45%;
+    flex-grow: 1;
+    font-family:sans-serif;
+}
+.search_film button{
+    background-color: #E7A04E;
+    height:50%;
+    font-family:sans-serif;
+    color:white;
+    border-radius: 10px;
+    border-style: solid;
+}
+.add_film{
+    display: flex;
+    padding: 5%;
+    justify-content: flex-end;
+
+}
+
+.add_film button{
+    background-color: #12c584;
+    color: white;
+    font-family:sans-serif;
+    border-radius: 10px;
+    border-style: solid;}
