@@ -1,20 +1,21 @@
 <?php
-function escapeDoesExist(mysqli $connection,?string $doesExist=null):string
+//Функция для получения и обработки GET ключа. Использовать только в случае если значение ключа в двух вариантах
+function getToString(mysqli $connection, ?string $getVariabale=null, ?string $variableName=null):string
 {
-    $clause="1=1";
-    if($doesExist!==null)
+    $clause="1";
+    if($getVariabale!==null)
     {
-        if($doesExist=="false")
+        if($getVariabale==="false")
         {
-            $doesExist=false;
+            $getVariabale=false;
         }
-        else if($doesExist==="true")
+        else if($getVariabale==="true")
         {
-            $doesExist=true;
+            $getVariabale=true;
         }
-        if(is_bool($doesExist)) {
-            $doesExist=(int)$doesExist;
-            $clause = "doesExist={$doesExist}";
+        if(is_bool($getVariabale)) {
+            $getVariabale=(int)$getVariabale;
+          $clause = "{$variableName}={$getVariabale}";
         }
     }
     return $clause;

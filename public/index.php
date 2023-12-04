@@ -1,22 +1,6 @@
 <?php
 require_once  __DIR__ .'/../boot.php';
-$genre=null;
 $doesExist=$_GET['doesExist'];
-//if(isset($_GET['genre']))
-//{
-//    {
-//        if(checkIfGenreExists($_GET['genre'],$genres))
-//        {
-//            $genre=$_GET['genre'];
-//        }
-//        else if(array_key_exists($_GET['genre'], $genres) )
-//            {
-//                $genre=$genres[$_GET['genre']];
-//            }
-//
-//
-//    }
-//}
 $sortedBuildings=getBuildings($doesExist);
 echo view('layout',
     [

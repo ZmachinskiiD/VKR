@@ -1,0 +1,15 @@
+body{
+    display:flex;
+    flex-direction: column;
+}
+.main{
+    display:flex;
+    justify-content: center;
+    align-content: center;
+}
+.mainbutton{
+    height: 50px;
+    background-color: crimson;
+    color: #FFFFFF;
+    border-radius: 20px;
+}

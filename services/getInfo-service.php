@@ -1,8 +1,9 @@
 <?php
 function getBuildings(?string $doesExist=null):array
 {
+//    $clause="1=1";
     $connection=getDbConnection();
-    $clause=escapeDoesExist($connection,$doesExist);
+    $clause=getToString($connection,$doesExist,"doesExist");
     $clause=mysqli_real_escape_string($connection,$clause);
     $result=mysqli_query($connection,
         "SELECT 
@@ -23,16 +24,27 @@ function getBuildings(?string $doesExist=null):array
         $building=new Building($row['id'],$row['rus_name'],$row['deu_name'],null,
             null,null,$row['description'],$row['logoPath'],null,null);
         $buildings[]=$building;
-//            [
-//                'id'=>$row['id'],
-//                'rus_name'=>$row['rus_name'],
-//                'deu_name'=>$row['deu_name'],
-//                'description'=>$row['description'],
-//                'location'=>$row['location'],
-//                'logoPath'=>$row['logoPath']
-//            ];
-
     }
-//    var_dump($buildings);
     return $buildings;
+}
+function getPhotos(?string  $isAfter1945=null):array
+{
+    $photos=[];
+    $connection=getDbConnection();
+    $clause=getToString($connection,$isAfter1945,"is_after_1945");
+    $clause=mysqli_real_escape_string($connection,$clause);
+    $result=mysqli_query($connection,
+        "
+    SELECT  path FROM photos
+    WHERE {$clause};"
+    );
+    if (!$result)
+    {
+        throw new Exception(mysqli_error($connection));
+    }
+    while($row=mysqli_fetch_assoc($result))
+    {
+        $photos[]=$row['path'];
+    }
+    return $photos;
 }
