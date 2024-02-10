@@ -1,23 +1,23 @@
 <?php
 class Building{
-    private int $id;
+    private ?int $id;
     private string $rus_title;
     private string $deu_title;
     private int $yearOfBuild;
-    private int $author_id;
+    private ?int $author_id;
     private string $description;
-    private string $adress;
+    private ?string $adress;
     private bool $doesExist;
-    private string $Logopath;
-    private string $geolocation;
+    private ?string $Logopath;
+    private ?string $geolocation;
     public function __construct(
-        int $id,string $rus_title,string $deu_title,?int $yearOfBuild=null, ?bool $doesExist=null,
+        ?int $id=null,string $rus_title,?string $deu_title=null,?int $yearOfBuild=null, ?bool $doesExist=null,
         ?int $author_id=null,?string $description=null,?string $Logopath=null,?string $geolocation=null,?string $adress=null
     )
     {
         $this->id=$id;
         $this->rus_title=$rus_title;
-        $this->deu_title=$deu_title;
+        $this->deu_title=$deu_title??"placeholder";
         $this->yearOfBuild=$yearOfBuild??1;
         $this->doesExist=$doesExist??false;
         $this->author_id=$author_id??1;

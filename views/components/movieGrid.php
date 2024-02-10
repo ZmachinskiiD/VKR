@@ -1,13 +1,13 @@
 <?php
 /**
  * @var Building $building
- * @var string $moviePosters
  * @var string $siteElements
+ * @var string $buildingCard
  */
 ?>
 <div class="movie_container">
     <div class="movie">
-        <img class="poster" src="<?=$moviePosters.$building->getId().".jpg"; ?>" alt="Image">
+        <img class="poster" src="<?=$buildingCard?>" alt="Image">
         <div class="movie_info">
             <div class="name">
                 <p class="rus_name"><?=$building->getRusTitle(); ?></p>
@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="effect">
-        <button class="more" onclick="window.location.href='/detail.php?id=<?=$movie['id']?>'" >
+        <button class="more" onclick="window.location.href='/detail.php?id=<?=$building->getId()?>'" >
             Узнать подробнее
         </button>
     </div>

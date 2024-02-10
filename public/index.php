@@ -2,6 +2,7 @@
 require_once  __DIR__ .'/../boot.php';
 $doesExist=$_GET['doesExist'];
 $sortedBuildings=getBuildings($doesExist);
+$buildingImages=option("BUILDING_IMAGES");
 echo view('layout',
     [
     'style'=>"styles/style_index.css" ,
@@ -10,7 +11,8 @@ echo view('layout',
     'mainInfo'=>view('pages/index',
         ['moviePosters'=>option('MOVIE_POSTERS'),
             'siteElements'=>option('SITE_ELEMENTS'),
-            'buildings'=>$sortedBuildings
+            'buildings'=>$sortedBuildings,
+            'buildingImages' =>$buildingImages,
         ])
     ]);
 ?>

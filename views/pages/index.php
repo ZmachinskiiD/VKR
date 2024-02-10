@@ -2,7 +2,8 @@
 /**
  * @var string $moviePosters
  * @var bool $siteElements
- * @var array $buildings
+ * @var Building[] $buildings
+ * @var string $buildingImages
  */
 ?>
 <div class="films">
@@ -11,7 +12,7 @@
         [
         'building'=>$building,
         'siteElements'=>$siteElements,
-        'moviePosters'=>$moviePosters
+        'buildingCard'=>$buildingImages."/{$building->getId()}/{$building->getLogopath()}",
 
         ])
     ?>

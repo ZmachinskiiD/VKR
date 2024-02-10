@@ -5,32 +5,23 @@
  * @var string $moviePosters
  * @var string $siteElements
  */
-$movie = [];
-$ratingArray=[];
-if ($id!==null)
-{
-    $key = array_search($id, array_column($movies, 'id'));
-    $movie = $movies[$key];
-    $ratingArray=getSquaresCount($movie['rating']);
-}
-//$ratingArray=getSquaresCount($movie['rating']);
+$buildingPhotos=getPhotosOfBuilding((int)$id);
+$moviePosters=option('MOVIE_POSTERS');
+$building=getBuilding($id)
+//var_dump($id);
+//var_dump($buildingPhotos);
 ?>
 <!DOCTYPE html>
 
-<?php if($movie !== []): ?>
+
     <div class="films">
     <?= view('components/movieDetail',
         [
-            'movie'=>$movie,
-            'siteElements'=>$siteElements,
+
+            'buildingPhotos'=>$buildingPhotos,
             'moviePosters'=>$moviePosters,
-            'ratingArray'=>$ratingArray,
+            'building'=>$building
 
         ])
     ?>
     </div>
-<?php else: ?>
-<div class="films">
-    Такого фильма не существует. Вернитесь на главную
-</div>
-<?php endif ?>
