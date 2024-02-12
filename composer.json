@@ -1,0 +1,14 @@
+{
+  "name": "vendor_name/buildinglist",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Dmitrii Zmachinskii",
+      "email": "zmachinskiiof@gmail.com"
+    }
+  ],
+  "require": {
+  }
+}
