@@ -1,6 +1,5 @@
 <?php
 /**
- * @var string $moviePosters
  * @var array $buildingPhotos
  * @var Building $building
  *

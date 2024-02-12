@@ -11,11 +11,11 @@ class Building{
     private ?string $Logopath;
     private ?string $geolocation;
     public function __construct(
-        ?int $id=null,string $rus_title,?string $deu_title=null,?int $yearOfBuild=null, ?bool $doesExist=null,
+        ?int $id,string $rus_title,?string $deu_title=null,?int $yearOfBuild=null, ?bool $doesExist=null,
         ?int $author_id=null,?string $description=null,?string $Logopath=null,?string $geolocation=null,?string $adress=null
     )
     {
-        $this->id=$id;
+        $this->id=$id??null;
         $this->rus_title=$rus_title;
         $this->deu_title=$deu_title??"placeholder";
         $this->yearOfBuild=$yearOfBuild??1;

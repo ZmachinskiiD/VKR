@@ -1,14 +1,14 @@
 <?php
 require_once  __DIR__ .'/../boot.php';
-$data=scandir("objects/images");
+//$data=scandir("objects/images");
 $isAfter1945=null;
 
 if(isset($_GET['is_after_1945']))
 {
     $isAfter1945=$_GET['is_after_1945'];
 }
-$photos=getPhotos($isAfter1945);
-$data=getPhotos($isAfter1945);
+$photos=ImageService::getPhotos($isAfter1945);
+$data=ImageService::getPhotos($isAfter1945);
 echo view('layout',
     [
         'style'=>"styles/archive.css" ,
