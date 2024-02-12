@@ -17,11 +17,11 @@
 </head>
 <body>
 
-<?=$sidebar?>
+<?= $this->renderComponent('sidebar', []) ?>
 <div class="content">
 
-        <?=$topbar?>
-        <?=$mainInfo?>
+    <?= $this->renderComponent('topbar', []) ?>
+        {{content}}
 </body>
 </html>
 

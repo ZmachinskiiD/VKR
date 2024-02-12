@@ -5,7 +5,7 @@ function view(string $path,array $variables=[]):string
     {
         throw new Exception('invalide template path');
     }
-    $absolutePath=ROOT."/views/$path.php";
+    $absolutePath=ROOT."/Views/$path.php";
     if(!file_exists($absolutePath)) // validate if template doesnt exists
     {
         throw new Exception('invalid template path-not found');

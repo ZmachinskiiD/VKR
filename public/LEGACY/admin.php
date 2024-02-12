@@ -1,5 +1,5 @@
 <?php
-require_once  __DIR__ .'/../boot.php';
+require_once __DIR__ . '/../boot.php';
 if($_SERVER['REQUEST_METHOD']==='POST')
 {
 

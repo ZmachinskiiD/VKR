@@ -5,10 +5,10 @@ function option(string $name,$defaultValue=null)
     static $config=null;
     if($config===null)
     {
-        $mconfig=require ROOT.'/config.php';
+        $mconfig= require ROOT . '/config.php';
         if(file_exists( ROOT.'/config-local.php'))
         {
-            $localconfig=require ROOT.'/config-local.php';
+            $localconfig= require ROOT . '/config-local.php';
         }
         else{
             $localconfig=[];

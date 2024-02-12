@@ -1,5 +1,12 @@
 {
   "name": "vendor_name/buildinglist",
+  "autoload": {
+    "psr-4": {
+      "Up\\": "src/",
+      "Core\\": "core/"
+
+    }
+  },
   "description": "description",
   "minimum-stability": "stable",
   "license": "proprietary",

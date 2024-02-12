@@ -1,5 +1,5 @@
 <?php
-require_once  __DIR__ .'/../boot.php';
+require_once __DIR__ . '/../boot.php';
 //$data=scandir("objects/images");
 $isAfter1945=null;
 
