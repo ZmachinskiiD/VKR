@@ -2,8 +2,6 @@
 /**
  * @var string $siteElements
  */
- require_once __DIR__ . '/../../boot.php';
- global $genres;
 ?>
 <div class="search_bar">
     <a href="/" class="logo-link">

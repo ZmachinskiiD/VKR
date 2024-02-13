@@ -2,12 +2,13 @@
 /**
  * @var Building $building
  * @var string $siteElements
- * @var string $buildingCard
+ * @var string $buildingCards
  */
+var_dump($building)
 ?>
 <div class="movie_container">
     <div class="movie">
-        <img class="poster" src="<?=$buildingCard?>" alt="Image">
+        <img class="poster" src="<?=$buildingCards."{$building->getId()}/{$building->getLogopath()}"?>" alt="<?=$buildingCards?>">
         <div class="movie_info">
             <div class="name">
                 <p class="rus_name"><?=$building->getRusTitle(); ?></p>

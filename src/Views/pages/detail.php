@@ -5,6 +5,10 @@
  * @var string $moviePosters
  * @var string $siteElements
  */
+
+use Up\Services\BuildingService;
+use Up\Services\ImageService;
+
 $buildingPhotos=ImageService::getPhotosOfBuilding((int)$id);
 $building=BuildingService::getBuildingInfo($id)
 //var_dump($id);

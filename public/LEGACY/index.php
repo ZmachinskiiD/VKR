@@ -1,4 +1,7 @@
 <?php
+
+use Up\Services\BuildingService;
+
 require_once  __DIR__ .'/../boot.php';
 $doesExist=$_GET['doesExist']??null;
 $sortedBuildings=BuildingService::getBuildings($doesExist);

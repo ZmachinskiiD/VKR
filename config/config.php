@@ -1,10 +1,9 @@
 <?php
 
 
-require_once 'boot.php';
 return [
     'APP_NAME' => 'TechnoShop',
     'APP_LANGUAGE' => 'en',
-//    'SITE_ELEMENTS' => getMyUrl() . '/objects/technical/',
-//    'BUILDING_IMAGES'=>getMyUrl() . '/objects/BuildingImages/'
+    'SITE_ELEMENTS' => \Up\Services\HttpService::getMyUrl() .'/assets/objects/technical/',
+    'BUILDING_IMAGES'=>\Up\Services\HttpService::getMyUrl() .'/assets/objects/BuildingImages/'
 ];

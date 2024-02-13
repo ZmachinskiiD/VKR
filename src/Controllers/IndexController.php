@@ -6,8 +6,11 @@ class IndexController extends BaseController
 {
 	public function indexAction(): string
 	{
+		$doesExist=$_GET['doesExist']??null;
 		$params = [
-            'Buildings'=>\BuildingService::getBuildings(null),
+            'buildings'=> \Up\Services\BuildingService::getBuildings($doesExist),
+			'siteElements'=>\Up\Services\ConfigurationService::option('SITE_ELEMENTS'),
+			'buildingCards'=>\Up\Services\HttpService::getMyUrl() .'/assets/objects/BuildingImages/'
 
 		];
 		return $this->render('index', $params);

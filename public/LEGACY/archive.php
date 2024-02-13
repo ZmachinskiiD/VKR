@@ -1,4 +1,7 @@
 <?php
+
+use Up\Services\ImageService;
+
 require_once __DIR__ . '/../boot.php';
 //$data=scandir("objects/images");
 $isAfter1945=null;

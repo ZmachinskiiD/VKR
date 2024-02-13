@@ -24,7 +24,7 @@ class BaseController
 
 	protected function getViewPath($view):string|\Exception
 	{
-		$viewPath = ROOT . "/src/Views/default/pages/$view.php";
+		$viewPath = ROOT . "/src/Views/pages/$view.php";
 		if (!preg_match('/^[0-9A-Za-z\/_-]+$/', $view))
 		{
 			throw new \RuntimeException('Invalid template path');
@@ -63,7 +63,7 @@ class BaseController
 
 	protected function getComponentPath($component):string|\Exception
 	{
-		$componentPath = ROOT . "/src/Views/default/components/$component.php";
+		$componentPath = ROOT . "/src/Views/components/$component.php";
 		if (!preg_match('/^[0-9A-Za-z\/_-]+$/', $component))
 		{
 			throw new \RuntimeException('Invalid template path');
