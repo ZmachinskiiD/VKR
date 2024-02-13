@@ -1,29 +1,23 @@
 <?php
 /**
- * @var int $id
- * @var array $movies
- * @var string $moviePosters
- * @var string $siteElements
+`* @var $building
  */
-
-use Up\Services\BuildingService;
-use Up\Services\ImageService;
-
-$buildingPhotos=ImageService::getPhotosOfBuilding((int)$id);
-$building=BuildingService::getBuildingInfo($id)
-//var_dump($id);
-//var_dump($buildingPhotos);
 ?>
-<!DOCTYPE html>
-
-
-    <div class="films">
-    <?= view('components/movieDetail',
-        [
-
-            'buildingPhotos'=>$buildingPhotos,
-            'building'=>$building
-
-        ])
-    ?>
+<div class="building_card">
+    <div class="card_header">
+        <div class="rus_name">
+            <?=$building->getRusTitle()?>
+        </div>
+        <div class="deu_name">
+            <?=$building->getDeuTitle()?>
+        </div>
     </div>
+    <div class="building_info">
+        <?=$building->getDescription()?>
+    </div>
+    <div class="building_photos">
+        <?php foreach($buildingPhotos as $buildingPhoto):?>
+            <img src="<?="./BuildingPhotos/".$buildingPhoto?> " height="400">
+        <?php endforeach;?>
+    </div>
+</div>

@@ -37,7 +37,7 @@ class BuildingService
 
 	public static function getBuildingInfo($id)
 	{
-		$connection = getDbConnection();
+		$connection =  DbConnection::get();
 		$query = "SELECT * FROM `buildings`  WHERE `id`={$id}";
 		$result = mysqli_query($connection, $query);
 		if (!$result) {
