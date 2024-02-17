@@ -1,6 +1,7 @@
 <?php
 /**
-`* @var $building
+ * @var $building
+ * @var $buildingPhotos
  */
 ?>
 <div class="building_card">

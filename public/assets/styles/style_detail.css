@@ -1,10 +1,10 @@
 
-.films{
-  display: flex;
-  overflow-y: hidden;
-  margin:48px;
+/*.films{*/
+/*  display: flex;*/
+/*  overflow-y: hidden;*/
+/*  margin:48px;*/
 
-}
+/*}*/
 .building_card{
   background-color: white;
   min-height: 965px;

@@ -1,6 +1,7 @@
 <?php
 namespace Up\Controllers;
 use Up\Services\BuildingService;
+use Up\Services\ImageService;
 
 class DetailController extends BaseController
 {
@@ -8,7 +9,8 @@ class DetailController extends BaseController
     {
         $id=$_GET['id'];
         $building=BuildingService::getBuildingInfo($id);
-        $params = ['id'=>$id,'building'=>$building];
+        $buildingPhotos=ImageService::getPhotosOfBuilding($id);
+        $params = ['id'=>$id,'building'=>$building,'buildingPhotos'=>$buildingPhotos];
         return $this->render('detail', $params);
     }
 }
