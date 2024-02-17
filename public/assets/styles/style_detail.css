@@ -1,10 +1,4 @@
 
-/*.films{*/
-/*  display: flex;*/
-/*  overflow-y: hidden;*/
-/*  margin:48px;*/
-
-/*}*/
 .building_card{
   background-color: white;
   min-height: 965px;
@@ -13,17 +7,17 @@
   grid-template-rows: 150px auto;
   padding: 20px;
 }
-.card_header{
+.building_card__card_header{
   font-family: Open Sans;
 
 }
-.rus_name{
+.D_rus_name{
   font-size: 28px;
 }
-.deu_name{
+.D_deu_name{
   font-size: 24px;
 }
-.building_info
+.D_building_info
 {
   font-size: 18px;
 }
