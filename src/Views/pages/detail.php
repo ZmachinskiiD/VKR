@@ -24,3 +24,4 @@ $amogus=str_replace(array("\r\n", "\n"), array("<br />", "<br />"), $sanitized);
         <?php endforeach;?>
     </div>
 </div>
+<script src="/assets/js/swiper-bundle.min.js"></script>
