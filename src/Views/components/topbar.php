@@ -9,7 +9,7 @@
     </form>
 
     <form class="add_film" action="/addFilm.php">
-        <button>Добавить фильм</button>
+<!--        <button>Добавить фильм</button>-->
     </form>
 
 </div>

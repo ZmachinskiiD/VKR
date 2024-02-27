@@ -27,7 +27,10 @@ class ImageService
 
 	public static function getPhotosOfBuilding(?int $id = null): array
 	{
-		$photos = [];
+		$photos = scandir(__DIR__."/../../public/assets/objects/BuildingImages/".$id."/");
+        $photos=array_slice($photos,2);
+//        var_dump($photos);
+
 
 		return $photos;
 	}
