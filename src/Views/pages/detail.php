@@ -18,10 +18,21 @@ $amogus=str_replace(array("\r\n", "\n"), array("<br />", "<br />"), $sanitized);
     <div class="D_building_info">
         <?=$amogus?>
     </div>
-    <div class="D_building_photos">
-        <?php foreach($buildingPhotos as $buildingPhoto):?>
-            <img src="<?="/assets/objects/BuildingImages/{$building->getId()}/".$buildingPhoto?> " height="400">
-        <?php endforeach;?>
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <?php foreach($buildingPhotos as $buildingPhoto):?>
+                <div class="swiper-slide">
+                <img src="<?="/assets/objects/BuildingImages/{$building->getId()}/".$buildingPhoto?> " class="slider-photo">
+                </div>
+            <?php endforeach;?>
+        </div>
+
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
     </div>
+
 </div>
-<script src="/assets/js/swiper-bundle.min.js"></script>
+<script src="/assets/scripts/swiper-bundle.min.js"></script>
+<script src="/assets/scripts/swiper.js"></script>

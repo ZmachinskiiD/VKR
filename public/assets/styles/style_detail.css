@@ -22,3 +22,19 @@
   font-family: Open Sans;
   font-size: 18px;
 }
+.swiper {
+  width: 100%;
+  height: 500px;
+}
+.swiper-wrapper
+{
+}
+.swiper-slide{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.slider-photo{
+  height: 100%;
+}
