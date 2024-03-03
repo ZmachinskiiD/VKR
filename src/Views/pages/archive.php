@@ -1,7 +1,7 @@
 <?php
 /**
- * @val array data
- * @val string moviePosters
+ * @var array $data
+ * @var string $moviePosters
  */
 ?>
 

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/assets/styles/layout.css">
     <link rel="stylesheet" href="/assets/styles/style_index.css">
     <link rel="stylesheet" href="/assets/styles/style_detail.css">
+    <link rel="stylesheet" href="/assets/styles/404.css">
 
 </head>
 <body>

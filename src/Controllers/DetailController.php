@@ -8,6 +8,10 @@ class DetailController extends BaseController
     public function detailAction(): string
     {
         $id=$_GET['id'];
+		if(!(is_numeric($id)))
+		{
+			return $this->render('404');
+		}
         $building=BuildingService::getBuildingInfo($id);
         $buildingPhotos=ImageService::getPhotosOfBuilding($id);
         $params = ['id'=>$id,'building'=>$building,'buildingPhotos'=>$buildingPhotos];

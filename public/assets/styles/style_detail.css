@@ -2,7 +2,7 @@
 .building_card{
   background-color: white;
   min-height: 965px;
-  width: 1169px;
+  width: 100%;
   display:grid;
   grid-template-rows: 150px auto;
   padding: 20px;
@@ -23,7 +23,7 @@
   font-size: 18px;
 }
 .swiper {
-  width: 100%;
+  width: 90%;
   height: 500px;
 }
 .swiper-wrapper
