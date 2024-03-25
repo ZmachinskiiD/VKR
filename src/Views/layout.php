@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/assets/styles/layout.css">
     <link rel="stylesheet" href="/assets/styles/style_index.css">
     <link rel="stylesheet" href="/assets/styles/style_detail.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico">
 
 </head>
 <body>

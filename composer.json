@@ -17,5 +17,7 @@
     }
   ],
   "require": {
+    "ext-pdo": "*",
+    "ext-mysqli": "*"
   }
 }

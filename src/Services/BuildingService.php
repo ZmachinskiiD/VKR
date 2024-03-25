@@ -21,12 +21,14 @@ class BuildingService
     `doesExist`, `logoPath`
     FROM `buildings` 
     WHERE {$clause};");
-		if (!$result) {
+		if (!$result)
+        {
 			throw new Exception(mysqli_error($connection));
 		}
 
 		$buildings = [];
-		while ($row = mysqli_fetch_assoc($result)) {
+		while ($row = mysqli_fetch_assoc($result))
+        {
 			$building = new Building($row['id'], $row['rus_name'], $row['deu_name'], null,
 				null, null, $row['description'], $row['logoPath'], null, null);
 			$buildings[] = $building;
@@ -97,4 +99,38 @@ VALUES('{$buildDate}','{$description}','{$deuName}','{$doesExist}',NULL,'{$locat
 		}
 		return $buildings;
 	}
+
+    /**
+     * @return bool|\mysqli_result
+     */
+    public static function getBuildingsForMap(): string
+    {
+        $connection =  DbConnection::get();
+        $query="SELECT id,rus_name,geolocation FROM buildings"
+                ." WHERE geolocation IS NOT NULL";
+
+        $result = mysqli_query($connection, $query);
+        if (!$result)
+        {
+            throw new Exception(mysqli_error($connection));
+        }
+        $buildings = [];
+        $jsonBuildings=[];
+        while ($row = mysqli_fetch_assoc($result))
+        {
+//            $building = new Building($row['id'], $row['rus_name'], null, null,
+//                null, null,null, null, $row['geolocation'], null);
+//            $buildings[] = $building;
+            $jsonBuilding=[
+                'id'=>$row['id'],
+                'rus_name'=> $row['rus_name'],
+                'geolocation'=>$row['geolocation']];
+            $jsonBuildings[]=$jsonBuilding;
+        }
+//        var_dump($jsonBuildings);
+        $jsonOut=json_encode($jsonBuildings, JSON_UNESCAPED_UNICODE);
+//        var_dump($jsonOut);
+        return $jsonOut;
+
+    }
 }
