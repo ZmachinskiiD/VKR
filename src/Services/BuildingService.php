@@ -30,7 +30,7 @@ class BuildingService
 		while ($row = mysqli_fetch_assoc($result))
         {
 			$building = new Building($row['id'], $row['rus_name'], $row['deu_name'], null,
-				null, null, $row['description'], $row['logoPath'], null, null);
+				null, null, $row['description'], $row['logoPath'], null, $row['location']);
 			$buildings[] = $building;
 		}
 		return $buildings;
@@ -131,6 +131,22 @@ VALUES('{$buildDate}','{$description}','{$deuName}','{$doesExist}',NULL,'{$locat
         $jsonOut=json_encode($jsonBuildings, JSON_UNESCAPED_UNICODE);
 //        var_dump($jsonOut);
         return $jsonOut;
+
+    }
+    public static function getBuildingsForAdmin():array
+    {
+        $connection =  DbConnection::get();
+        $query="SELECT* FROM buildings";
+
+        $result = mysqli_query($connection, $query);
+        $buildings = [];
+        while ($row = mysqli_fetch_assoc($result))
+        {
+            $building = new Building($row['id'], $row['rus_name'], $row['deu_name'], $row['build_date'],
+                $row['doesExist'], $row['author_id'], $row['description'], $row['logoPath'], $row['geolocation'], $row['location']);
+            $buildings[] = $building;
+        }
+        return $buildings;
 
     }
 }

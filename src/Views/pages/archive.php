@@ -6,7 +6,5 @@
 ?>
 
 <div class="photo_list">
-    <?php foreach($data as $photo):?>
-    <img src="<?=$moviePosters.$photo?>" class="archive_photo">
-    <?php endforeach;?>
+    HERE BE PHOTOS
 </div>

@@ -21,12 +21,6 @@
                 </div>
                 <div class="footer">
                     <div>
-                        <img src="<?=$siteElements."clock1.png" ?>" alt="clock">
-                    </div>
-                    <div>
-						<?=$building->getAdress(); ?>
-                    </div>
-                    <div>
 						<?=$building->getAdress(); ?>
                     </div>
                 </div>
