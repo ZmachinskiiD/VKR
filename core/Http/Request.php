@@ -1,67 +1,74 @@
 <?php
 
+
+
 namespace Core\Http;
 
 class Request
 {
-	public static function method(): string
-	{
-		return $_SERVER['REQUEST_METHOD'];
-	}
+    public static function server(string $key): string
+    {
+        return $_SERVER[$key] ?? '';
+    }
 
-	public static function uri(): string
-	{
-		return $_SERVER['REQUEST_URI'];
-	}
+    public static function isGet(): string
+    {
+        return self::server('REQUEST_METHOD') === 'GET';
+    }
 
-	public static function getBody(): array|null
-	{
-		$data = [];
-		if (self::method() === 'GET')
-		{
-			foreach ($_GET as $key => $value)
-			{
-				$data[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
-			}
-		}
-		if (self::method() === 'POST')
-		{
-			foreach ($_POST as $key => $value)
-			{
-				if(is_array($value))
-				{
-					$data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS,FILTER_REQUIRE_ARRAY);
-				}
-				else
-				{
-					$data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
-				}
+    public static function isPost(): string
+    {
+        return self::server('REQUEST_METHOD') === 'POST';
+    }
 
-			}
-		}
-		return $data;
-	}
-	public static function getSession($key = null): array|null
-	{
-		if ($key)
-		{
-			return $_SESSION[$key] ?? null;
-		}
-		return $_SESSION;
-	}
-	public static function getFiles(): array|null
-	{
-		$files = [];
-		foreach ($_FILES as $key => $file)
-		{
-			$files[$key] = [
-				'name' => $file['name'],
-				'type' => $file['type'],
-				'tmp_name' => $file['tmp_name'],
-				'error' => $file['error'],
-				'size' => $file['size'],
-			];
-		}
-		return $files;
-	}
+    public static function getBody(): array|null
+    {
+        $data = [];
+        if (self::isGet())
+        {
+            $data = $_GET;
+        }
+        if (self::isPost())
+        {
+            $data = $_POST;
+        }
+        return $data;
+    }
+    public static function getSession(string $key = null): mixed
+    {
+        if ($key)
+        {
+            return $_SESSION[$key] ?? null;
+        }
+        return $_SESSION;
+    }
+
+    public static function unsetSessionValue(string $key): void
+    {
+        unset($_SESSION[$key]);
+    }
+    public static function setSession(string $key, mixed $value):void
+    {
+        $_SESSION[$key] = $value;
+    }
+    public static function &getLinkSession(string $key): array
+    {
+        return $_SESSION[$key];
+    }
+    public static function getFiles(): array|null
+    {
+        $files = [];
+        foreach ($_FILES as $key => $file)
+        {
+            $files[$key] = [
+                'name' => $file['name'],
+                'type' => $file['type'],
+                'tmp_name' => $file['tmp_name'],
+                'error' => $file['error'],
+                'size' => $file['size'],
+            ];
+        }
+        return $files;
+    }
 }
+

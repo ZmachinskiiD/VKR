@@ -33,17 +33,17 @@ class BaseController
 		return $viewPath;
 	}
 
-	public function render($view, $params = []):string
+	public function render($view, $params = [],?string $layout="layout"):string
 	{
-		$layoutContent = $this->setLayout();
+		$layoutContent = $this->setLayout($layout);
 		$viewContent = $this->renderView($view, $params);
 		return str_replace('{{content}}', $viewContent, $layoutContent);
 	}
 
-	protected function setLayout()
+	protected function setLayout($layout)
 	{
 		ob_start();
-		include_once ROOT . "/src/Views/layout.php";
+		include_once ROOT . "/src/Views/$layout.php";
 		return ob_get_clean();
 	}
 

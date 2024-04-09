@@ -68,13 +68,13 @@ line-height: normal;
 
 .footer{
   display: grid;
-  grid-template-columns: 30px 120px 179px;
+  /*grid-template-columns: 30% 70%;*/
   grid-row-gap: 10px;
   font-family: Open Sans;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0em;
-  text-align: right;
+  text-align: center;
   color:#CCCCCC
 
 }
