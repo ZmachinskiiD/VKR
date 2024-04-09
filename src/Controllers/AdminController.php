@@ -11,4 +11,10 @@ class AdminController extends BaseController
         $params=['buildings'=>$buildings];
         return $this->render('admin', $params,'adminLayout');
     }
+    public function createAction(): string
+    {
+        $params=[];
+        return $this->render('createForm', $params,'adminLayout');
+    }
 }
+

@@ -2,6 +2,7 @@
 
 namespace Up\Services;
 use Core\DB\DbConnection;
+use Core\Http\Request;
 use Up\Models\Building;
 
 class BuildingService
@@ -55,28 +56,16 @@ class BuildingService
 		return $building;
 	}
 
-	public static function insertBuilding(Building $building)
+	public static function insertBuilding()
 	{
-		//todo Сделать вставку геолокации
-		$connection = getDbConnection();
-		$buildDate = (int)$building->getYearOfBuild();
-		$rusName = $building->getRusTitle();
-		$deuName = $building->getDeuTitle();
-		$description = $building->getDescription();
-		$doesExist = (int)$building->isDoesExist();
-		var_dump($doesExist);
-		$geolocation = $building->getGeolocation();
-		$location = $building->getAdress();
-		$logo = $building->getLogopath();
-		$sql = "
-INSERT INTO buildings(build_date,description,deu_name,doesExist,geolocation,location,logoPath,rus_name)
-VALUES('{$buildDate}','{$description}','{$deuName}','{$doesExist}',NULL,'{$location}','{$logo}','{$rusName}')
-";
-		$result = mysqli_query($connection, $sql);
-		if (!$result) {
-			throw new Exception(mysqli_error($connection));
-		}
-		return true;
+        $request=Request::getBody();
+		$rus_name=$request['rus_name'];
+        $deu_name=$request['deu_name'];
+        $description=$request['description'];
+        $location=$request['location'];
+        $geolocation=$request['geolocation'];
+        $buildDate=$request['time'];
+        
 	}
 
 	public static function getBuildingsId(): array
