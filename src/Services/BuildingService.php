@@ -56,16 +56,28 @@ class BuildingService
 		return $building;
 	}
 
-	public static function insertBuilding()
+	public static function insertBuilding():int
 	{
         $request=Request::getBody();
+
 		$rus_name=$request['rus_name'];
         $deu_name=$request['deu_name'];
         $description=$request['description'];
         $location=$request['location'];
         $geolocation=$request['geolocation'];
         $buildDate=$request['time'];
-        
+        $doesExist=$request['doesExist'];
+
+        $connection = DbConnection::get();
+        $result="INSERT INTO buildings(`rus_name`,`deu_name`,`description`,`build_date`,`doesExist`,`location`,`geolocation`)"
+            ."    VALUES('{$rus_name}','{$deu_name}','{$description}','{$buildDate}','{$doesExist}','{$location}','{$geolocation}')";
+        $connection->query($result);
+        $id=$connection->insert_id;
+        if (!mkdir("./assets/objects/BuildingImages/{$id}") && !is_dir("./assets/objects/BuildingImages/{$id}"))
+        {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', "./assets/objects/BuildingImages/{$id}"));
+        }
+        return $id;
 	}
 
 	public static function getBuildingsId(): array
@@ -137,5 +149,16 @@ class BuildingService
         }
         return $buildings;
 
+    }
+    public static function deleteBuilding($id):void
+    {
+        $connection =  DbConnection::get();
+        $query="DELETE FROM buildings WHERE id={$id}";
+        if(file_exists("./assets/objects/BuildingImages/{$id}/"))
+        {
+            array_map('unlink', glob("./assets/objects/BuildingImages/{$id}/*.*"));
+            rmdir("./assets/objects/BuildingImages/{$id}");
+        }
+        $connection->query($query);
     }
 }
