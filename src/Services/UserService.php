@@ -34,4 +34,21 @@ class UserService
         return false;
 
     }
+    public static function authentificateUser()
+    {
+        session_start();
+        $email=$_SESSION['email'];
+        $password=$_SESSION['password'];
+        $connection =  DbConnection::get();
+        $query="SELECT * FROM Users ".
+            " WHERE email='{$email}'";
+        $result=mysqli_query($connection,$query);
+        $row = mysqli_fetch_assoc($result);
+        if(isset($row))
+        {
+            $hash = $row['password'];
+            return password_verify($password, $hash);
+        }
+        return false;
+    }
 }

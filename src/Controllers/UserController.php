@@ -25,12 +25,16 @@ class UserController extends BaseController
         $params=[];
         if(Request::isPost())
         {
-            if(UserService::getUser());
+            if(UserService::getUser())
             {
                 session_start();
+                $_SESSION['email']=Request::getBody()['email'];
+                $_SESSION['password']=Request::getBody()['password'];
+
             }
             header("Location:/");
         }
         return $this->render('login', $params, 'emptyLayout');
     }
+
 }

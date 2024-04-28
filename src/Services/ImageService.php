@@ -2,11 +2,13 @@
 
 namespace Up\Services;
 
+use Core\DB\DbConnection;
 use Exception;
 use RuntimeException;
 use Up\Models\Image;
 use Core\Http\Request;
 
+use Up\Models\Photo;
 use Up\Services\ConfigurationService;
 
 class ImageService
@@ -45,7 +47,6 @@ class ImageService
     public static function insertImageInFolder(string $filename,string $path,string $form): void
     {
         $target_file =$path."/" . $filename;
-
         if (!move_uploaded_file(self::getImageArray($form)['tmp_name'], $target_file))
         {
             throw new RuntimeException('Error adding an image: ' . "Файл не найден");
@@ -163,6 +164,29 @@ class ImageService
         return new Image(null, $imageRow['PRODUCT_ID'], $imageRow['PATH'], 1);
     }
 
+    public static function insertImageInArchive(string $path, string $description)
+    {
+        $connection = DbConnection::get();
+        $query=
+            "INSERT INTO photos(`path`,`description`)".
+        " VALUES ('{$path}','{$description}')";
+        $connection->query($query);
+        $id=$connection->insert_id;
+    }
+    public static function getImagesFromArchive(int $page)
+    {
+        $images=[];
+        $connection = DbConnection::get();
+        $query="SELECT * FROM photos";
+        $result = mysqli_query($connection, $query);
+        while ($row = mysqli_fetch_assoc($result))
+        {
+            $image=new Photo($row['id'],$row['building_id'],$row['path'],$row['description']);
+            $images[]=$image;
+
+        }
+        return $images;
+    }
     public function getDir(): string
     {
         return $this->dir;

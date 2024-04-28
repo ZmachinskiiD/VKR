@@ -16,7 +16,7 @@
                 </button>
             </header>
             <footer class="card-footer">
-                <a href="#" class="card-footer-item">Редактировать</a>
+                <a href="/admin/updateBuilding/<?=$building->getId()?>/" class="card-footer-item">Редактировать</a>
                 <a href="/admin/deleteBuilding/<?=$building->getId()?>/" class="card-footer-item">Удалить</a>
             </footer>
         </div>

@@ -4,36 +4,82 @@ use Core\Http\Request;
 use Up\Controllers\BaseController;
 use Up\Services\BuildingService;
 use Up\Services\ImageService;
+use Up\Services\UserService;
 
 class AdminController extends BaseController
 {
     public function adminAction(): string
     {
-        $buildings=BuildingService::getBuildingsForAdmin();
-        $params=['buildings'=>$buildings];
-        return $this->render('admin', $params,'adminLayout');
+        if(UserService::authentificateUser())
+        {
+            $buildings = BuildingService::getBuildingsForAdmin();
+            $params = ['buildings' => $buildings];
+            return $this->render('admin', $params, 'adminLayout');
+        }
+        else
+        {
+            header("Location: /login/");
+            return("HEH");
+        }
     }
     public function createAction(): string
     {
         $params=[];
-        if(Request::isPost())
+        if(UserService::authentificateUser())
         {
-            $id=BuildingService::insertBuilding();
-            $imageService=new ImageService($id);
-            $newName=$imageService::renameImage("mainPhoto");
-            $imageService::insertImageInFolder($newName,"./assets/objects/BuildingImages/{$id}","mainPhoto");
+            if (Request::isPost()) {
+                $id = BuildingService::insertBuilding();
+                $imageService = new ImageService($id);
+                $newName = $imageService::renameImage("mainPhoto");
+                $imageService::insertImageInFolder($newName, "./assets/objects/BuildingImages/{$id}", "mainPhoto");
+            }
+            return $this->render('createForm', $params, 'adminLayout');
         }
-        return $this->render('createForm', $params,'adminLayout');
+        else
+        {
+            header("Location: /login/");
+            return("HEH");
+        }
     }
     public function deleteAction($id)
     {
-        if(Request::isPost())
+        if(UserService::authentificateUser())
         {
-            BuildingService::deleteBuilding($id);
-            $params = [];
-            header("Location: /admin/main/");
-            //return $this->render('deletePage', $params,'adminLayout');
+            if (Request::isPost()) {
+                BuildingService::deleteBuilding($id);
+                $params = [];
+                header("Location: /admin/main/");
+                //return $this->render('deletePage', $params,'adminLayout');
+            }
         }
+        else
+        {
+            header("Location: /login/");
+            return("HEH");
+        }
+    }
+    public function photoAction()
+    {
+        if(UserService::authentificateUser())
+        {
+            if(Request::isPost())
+            {
+                $imageService = new ImageService(null);
+                $newName = $imageService::renameImage("photo");
+                $description=Request::getBody()['description'];
+                $imageService::insertImageInFolder($newName, "./assets/objects/ArchiveImages", "photo");
+                $imageService::insertImageInArchive("./assets/objects/ArchiveImages/".$newName,$description);
+            }
+            else
+            {
+                $params = [];
+                return $this->render('adminArchive', $params, 'adminLayout');
+            }
+        }
+    }
+    public function updateAction($id)
+    {
+        
     }
 }
 
