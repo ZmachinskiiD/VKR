@@ -104,7 +104,7 @@ class BuildingService
     /**
      * @return bool|\mysqli_result
      */
-    public static function getBuildingsForMap(): string
+    public static function getBuildingsForMap()
     {
         $connection =  DbConnection::get();
         $query="SELECT id,rus_name,geolocation FROM buildings"
@@ -119,18 +119,14 @@ class BuildingService
         $jsonBuildings=[];
         while ($row = mysqli_fetch_assoc($result))
         {
-//            $building = new Building($row['id'], $row['rus_name'], null, null,
-//                null, null,null, null, $row['geolocation'], null);
-//            $buildings[] = $building;
             $jsonBuilding=[
                 'id'=>$row['id'],
                 'rus_name'=> $row['rus_name'],
                 'geolocation'=>$row['geolocation']];
             $jsonBuildings[]=$jsonBuilding;
         }
-//        var_dump($jsonBuildings);
         $jsonOut=json_encode($jsonBuildings, JSON_UNESCAPED_UNICODE);
-//        var_dump($jsonOut);
+        return $jsonBuildings;
         return $jsonOut;
 
     }
