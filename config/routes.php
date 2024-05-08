@@ -3,7 +3,8 @@
 use Core\Routing\Router;
 
 Router::get('/', [new Up\Controllers\IndexController(), 'indexAction']);
-Router::get('/detail/', [new Up\Controllers\DetailController(), 'detailAction']);
+Router::get('/detail/:id/', [new Up\Controllers\DetailController(), 'detailAction']);
+Router::post('/detail/:id/', [new Up\Controllers\DetailController(), 'CommentAction']);
 Router::get('/route/', [new Up\Controllers\MapController(), 'mapAction']);
 Router::post('/route/', [new Up\Controllers\MapController(), 'mapAction']);
 Router::get('/archive/', [new Up\Controllers\ArchiveController(), 'archiveAction']);
@@ -22,6 +23,8 @@ Router::get('/register/', [new Up\Controllers\UserController(), 'registrationAct
 Router::get('/login/', [new Up\Controllers\UserController(), 'loginAction']);
 Router::post('/register/', [new Up\Controllers\UserController(), 'registrationAction']);
 Router::post('/login/', [new Up\Controllers\UserController(), 'loginAction']);
+
+Router::post('/technical/', [new Up\Controllers\UserController(), 'logoutAction']);
 
 
 

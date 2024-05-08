@@ -173,6 +173,16 @@ class ImageService
         $connection->query($query);
         $id=$connection->insert_id;
     }
+    public static function getPhotosOfBuilding(?int $id = null): array
+    {
+        $photos = scandir(__DIR__."/../../public/assets/objects/BuildingImages/".$id."/");
+        $photos=array_slice($photos,2);
+//        var_dump($photos);
+
+
+        return $photos;
+    }
+
     public static function getImagesFromArchive(int $page)
     {
         $images=[];

@@ -14,21 +14,51 @@
     ymaps.ready(init);
     function init()
     {
-        var myMap = new ymaps.Map("map", {
+        var myMap = new ymaps.Map("map",
+            {
             center: [54.704, 20.503],
             zoom: 10
-        });
+
+            },
+        {
+            // Зададим ограниченную область прямоугольником,
+            // примерно описывающим Санкт-Петербург.
+            restrictMapArea: [
+                [54.752266, 20.443471],
+                [54.688278, 20.549792]
+            ]
+        },
+            {
+                searchControlProvider: 'yandex#search'
+            }
+
+        );
         let buildings=<?php echo json_encode($buildings)?>;
         buildings.forEach((building)=>
         {
-            alert(building['geolocation']);
             myMap.geoObjects.add(new ymaps.Placemark(building['geolocation'].split(", "), {
-                balloonContent: building['rus_name']
+                balloonContentHeader: building['rus_name'],
+                balloonContentBody: "Содержимое <em>балуна</em> метки",
+                balloonContentFooter: "<a href=/detail/?id=10>Пройти на страницу здания</a>",
+                hintContent:  building['rus_name'],
             }, {
                 preset: 'islands#icon',
                 iconColor: '#0095b6',
 
             }))
-        })
+        });
+        var geolocation = ymaps.geolocation
+        geolocation.get({
+            provider: 'yandex',
+            mapStateAutoApply: true
+        }).then(function (result) {
+            // Красным цветом пометим положение, вычисленное через ip.
+            result.geoObjects.options.set('preset', 'islands#redCircleIcon');
+            result.geoObjects.get(0).properties.set({
+                balloonContentBody: 'Мое местоположение'
+            });
+            myMap.geoObjects.add(result.geoObjects);
+        });
+        console.log("HERE")
     }
 </script>

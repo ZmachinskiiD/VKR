@@ -9,7 +9,6 @@ class BuildingService
 {
 	public static function getBuildings(?string $doesExist = null): array
 	{
-//        $clause="1=1";
 		$connection = DbConnection::get();
 		$clause = DataPreparationService::getToString($doesExist, "doesExist");
 		$clause = mysqli_real_escape_string($connection, $clause);
@@ -115,7 +114,6 @@ class BuildingService
         {
             throw new Exception(mysqli_error($connection));
         }
-        $buildings = [];
         $jsonBuildings=[];
         while ($row = mysqli_fetch_assoc($result))
         {

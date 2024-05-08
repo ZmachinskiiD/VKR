@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="effect">
-            <button class="more" onclick="window.location.href='/detail/?id=<?=$building->getId()?>'" >
+            <button class="more" onclick="window.location.href='/detail/<?=$building->getId()?>/'" >
                 Узнать подробнее
             </button>
         </div>

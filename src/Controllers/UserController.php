@@ -1,6 +1,7 @@
 <?php
 namespace Up\Controllers;
 use Core\Http\Request;
+use Core\Web\Json;
 use Up\Controllers\BaseController;
 use Up\Services\UserService;
 
@@ -35,6 +36,20 @@ class UserController extends BaseController
             header("Location:/");
         }
         return $this->render('login', $params, 'emptyLayout');
+    }
+    public function logoutAction()
+    {
+        header('Content-Type: application/json');
+        UserService::Logout();
+        $input = file_get_contents('php://input');
+        if (isset($input))
+        {
+            echo Json::encode([
+                'result' => 'Y',
+                'data'=>$input
+            ]);
+        }
+
     }
 
 }
