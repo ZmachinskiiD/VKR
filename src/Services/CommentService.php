@@ -16,22 +16,22 @@ class CommentService
     public static function getComments($buildingId):array
     {
         $connection = DbConnection::get();
-        $query="SELECT * FROM Comments inner join Users".
+        $query="SELECT Comments.id as CommentId,userId,username,text,buildingId FROM Comments inner join Users".
             " on Comments.userId=Users.id ".
         "WHERE `buildingId`='{$buildingId}'";
         $result = mysqli_query($connection, $query);
         $comments = [];
         while ($row = mysqli_fetch_assoc($result))
         {
-            $comment=new Comment($row['id'],$row['userId'],$row['buildingId'],$row['text'],$row['username']);
+            $comment=new Comment($row['CommentId'],$row['userId'],$row['buildingId'],$row['text'],$row['username']);
             $comments[]=$comment;
         }
         return $comments;
     }
-    public static function deleteComment($id,$userId):void
+    public static function deleteComment($id):void
     {
         $connection = DbConnection::get();
-        $query="SELECT* FROM Comments".
+        $query="SELECT * FROM Comments ".
             "WHERE `id`='{$id}'";
         $result = mysqli_query($connection, $query);
         $row = mysqli_fetch_assoc($result);
@@ -41,5 +41,15 @@ class CommentService
                 "WHERE `id`='{$id}'";
             $connection->query($query);
         }
+    }
+
+    public static function getAuthor(bool|string $commentId)
+    {
+        $connection = DbConnection::get();
+        $query="SELECT userId FROM Comments ".
+            "WHERE `id`='{$commentId}'";
+        $result = mysqli_query($connection, $query);
+        $row = mysqli_fetch_assoc($result);
+        return $row['userId'];
     }
 }

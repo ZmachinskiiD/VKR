@@ -78,28 +78,6 @@ class BuildingService
         }
         return $id;
 	}
-
-	public static function getBuildingsId(): array
-	{
-		$connection = getDbConnection();
-		$result = mysqli_query($connection,
-			"SELECT 
-    `id`, `rus_name`
-    FROM `buildings` "
-		);
-		if (!$result) {
-			throw new Exception(mysqli_error($connection));
-		}
-
-		$buildings = [];
-		while ($row = mysqli_fetch_assoc($result)) {
-			$building = new Building($row['id'], $row['rus_name'], null, null,
-				null, null, null, null, null, null);
-			$buildings[] = $building;
-		}
-		return $buildings;
-	}
-
     /**
      * @return bool|\mysqli_result
      */
@@ -117,10 +95,13 @@ class BuildingService
         $jsonBuildings=[];
         while ($row = mysqli_fetch_assoc($result))
         {
-            $jsonBuilding=[
+            $jsonBuilding=
+                [
                 'id'=>$row['id'],
                 'rus_name'=> $row['rus_name'],
-                'geolocation'=>$row['geolocation']];
+                'geolocation'=>$row['geolocation'],
+                'isFeatured'=>BuildingService::isFeaturedWithUser($row['id'],UserService::getUserId()),
+            ];
             $jsonBuildings[]=$jsonBuilding;
         }
         $jsonOut=json_encode($jsonBuildings, JSON_UNESCAPED_UNICODE);
@@ -154,5 +135,36 @@ class BuildingService
             rmdir("./assets/objects/BuildingImages/{$id}");
         }
         $connection->query($query);
+    }
+    public static function addToFeatured($buildingId,$userId)
+    {
+        $connection = DbConnection::get();
+        $result="INSERT INTO BuildingsUser(`userId`,`buildingId`)".
+            " VALUES('{$userId}','{$buildingId}')";
+        $connection->query($result);
+    }
+    public static function deleteFeaturedBuilding($buildingId,$userId)
+    {
+        $connection = DbConnection::get();
+        $result="DELETE FROM BuildingsUser".
+            " WHERE userId={$userId} and buildingId={$buildingId}";
+        $connection->query($result);
+    }
+    public static function isFeaturedWithUser($buildingId,$userId):bool
+    {
+        if($userId===null)
+        {
+            return false;
+        }
+        $connection =  DbConnection::get();
+        $query="SELECT * FROM buildingsUser"
+        ." WHERE userId={$userId} and buildingId={$buildingId}";
+        $result = mysqli_query($connection, $query);
+        $row = mysqli_fetch_assoc($result);
+        if($row===NULL)
+        {
+            return false;
+        }
+        return true;
     }
 }

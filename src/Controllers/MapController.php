@@ -9,6 +9,6 @@ class MapController extends BaseController
     {
 
         $params = ['buildings'=>BuildingService::getBuildingsForMap()];
-        return $this->render('map', $params);
+        return $this->render('map', $params,'mapLayout');
     }
 }

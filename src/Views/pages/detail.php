@@ -4,16 +4,26 @@
  * @var $buildingPhotos
  * @var \Up\Models\Comment[] $comments
  * @var $id
+ * @var $isFeatured
+ * @var $userId
+ * @var $isAdmin
  */
 $sanitized = htmlspecialchars($building->getDescription(), ENT_QUOTES);
 $amogus=str_replace(array("\r\n", "\n"), array("<br />", "<br />"), $sanitized);
+if($user===null)
+{
+    $user="undefined";
+}
 ?>
 <div class="content has-background-light">
     <div class="block">
             <div class="block">
+            <nav class="level">
             <div class="D_rus_name">
                 <?=$building->getRusTitle()?>
             </div>
+             <button class="button is-primary" id="featured"><?php if(!($isFeatured)):?>Добавить в избранное<?php else:?>В избранном<?php endif;?></button>
+                </nav>
             </div>
             <div class="block">
             <div class="D_deu_name">
@@ -62,7 +72,7 @@ $amogus=str_replace(array("\r\n", "\n"), array("<br />", "<br />"), $sanitized);
 </article>
 <div class="container is-max-desktop"  >
     <?php foreach ($comments as $comment):?>
-    <article class="media">
+    <article class="media" id="<?=$comment->getId()?>">
         <div class="media-content">
             <div class="content">
                 <p>
@@ -71,18 +81,120 @@ $amogus=str_replace(array("\r\n", "\n"), array("<br />", "<br />"), $sanitized);
                     <?=$comment->getText()?>
                     <br />
                 </p>
+                <?php if($comment->getUserId()==$userId||$isAdmin===true):?>
+                <button id="commentButton"
+                onclick="deleteComment(<?=$comment->getId()?>,<?=$comment->getUserId()?>,<?=$userId?>,false)">
+                    Удалить комментарий
+                </button>
+                <?php endif;?>
             </div>
         </div>
     </article>
     <?php endforeach;?>
 </div>
-<footer class="footer">
-    <div class="content has-text-centered">
-        <p>
-            <strong>КёнигГебойде</strong> by <a href="https://jgthms.com">Dmitrii Zmachinskii</a>.
-            БФУ 2024
-        </p>
-    </div>
-</footer>
+
 <script src="/assets/scripts/swiper-bundle.min.js"></script>
 <script src="/assets/scripts/swiper.js"></script>
+<script>
+    function deleteComment(Id,userId,commentUser,isAdmin)
+    {
+        if(userId===commentUser || isAdmin===true)
+        {
+            const comment=document.getElementById(Id);
+            comment.remove();
+            deleteCommentFromDatabase(Id)
+        }
+
+    }
+    let featured=document.getElementById("featured")
+    featured.onclick=function()
+    {
+        let user="<?=$user?>";
+        let id="<?=$id?>"
+        if(user==='undefined')
+        {
+            console.log("HERE");
+            alert("Зарегистрируйтесь или войдите")
+        }
+        else
+        {
+            if(featured.textContent==="Добавить в избранное")
+            {
+                featured.textContent="В избранном"
+                addToFeatured()
+
+            }
+            else if(featured.textContent==="В избранном")
+            {
+                featured.textContent="Добавить в избранное"
+                deleteFromFeatured()
+            }
+        }
+        async function addToFeatured()
+        {
+            const response = await fetch('/addToFeatured/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                    },
+                    body: id,
+                }
+            );
+
+            const responseText = await response.json();
+            if (responseText.result !== 'Y')
+            {
+                console.log('error while updating');
+
+            }
+            else
+            {
+                console.log(responseText.data);
+            }
+        }
+        async function deleteFromFeatured()
+        {
+            const response = await fetch('/deleteFromFeatured/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                    },
+                    body: id,
+                }
+            );
+            const responseText = await response.json();
+            if (responseText.result !== 'Y')
+            {
+                console.log('error while updating');
+
+            }
+
+            else
+            {
+                console.log(responseText.data);
+            }
+        }
+    }
+    async function deleteCommentFromDatabase(id)
+    {
+        const response = await fetch('/deleteComment/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+                body: id,
+            }
+        );
+
+        const responseText = await response.json();
+        if (responseText.result !== 'Y')
+        {
+            console.log('error while updating');
+
+        }
+        else
+        {
+            console.log(responseText.data);
+        }
+    }
+</script>

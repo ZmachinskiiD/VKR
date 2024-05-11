@@ -2,8 +2,15 @@
 $user=\Up\Services\UserService::getUserName();
 ?>
 <div class="tabs is-centered is-fullwidth">
+    <section class="hero">
+        <div class="hero-body">
+            <p class="title">Здания</p>
+            <p class="subtitle">Кенигсбергского университета</p>
+        </div>
+    </section>
+
     <ul>
-        <li class="is-active">
+        <li>
             <a>
         <span class="icon is-small"
         ><i class="fas fa-image" aria-hidden="true"></i

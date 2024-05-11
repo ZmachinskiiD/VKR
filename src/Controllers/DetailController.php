@@ -18,7 +18,12 @@ class DetailController extends BaseController
         $building=BuildingService::getBuildingInfo($id);
         $buildingPhotos=ImageService::getPhotosOfBuilding($id);
         $comments=CommentService::getComments($id);
-        $params = ['id'=>$id,'building'=>$building,'buildingPhotos'=>$buildingPhotos,'comments'=>$comments];
+        $user=\Up\Services\UserService::getUserName();
+        $userId=UserService::getUserId();
+        $isAdmin=UserService::isAdmin($userId);
+        $isFeatured=BuildingService::isFeaturedWithUser($id,$userId);
+        $params = ['id'=>$id,'building'=>$building,'buildingPhotos'=>$buildingPhotos,
+            'comments'=>$comments,'user'=>$user,'isFeatured'=>$isFeatured,'userId'=>$userId,'isAdmin'=>$isAdmin];
         return $this->render('detail', $params);
     }
     public function  CommentAction(string $id)

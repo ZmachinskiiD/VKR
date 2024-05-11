@@ -25,6 +25,9 @@ Router::post('/register/', [new Up\Controllers\UserController(), 'registrationAc
 Router::post('/login/', [new Up\Controllers\UserController(), 'loginAction']);
 
 Router::post('/technical/', [new Up\Controllers\UserController(), 'logoutAction']);
+Router::post('/addToFeatured/', [new Up\Controllers\UserController(), 'featuredAction']);
+Router::post('/deleteFromFeatured/', [new Up\Controllers\UserController(), 'deleteFeaturedAction']);
+Router::post('/deleteComment/', [new Up\Controllers\UserController(), 'deleteCommentAction']);
 
 
 

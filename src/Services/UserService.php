@@ -14,7 +14,7 @@ class UserService
         $connection =  DbConnection::get();
         $query=
             "INSERT INTO `Users`( `username`, `email`, `password`, `role`)".
-            "VALUES ('{$userName}','{$email}','{$password}',1)";
+            "VALUES ('{$userName}','{$email}','{$password}',0)";
         $connection->query($query);
     }
     public static function getUser():bool
@@ -54,8 +54,8 @@ class UserService
     public static function getUserId()
     {
         session_start();
-        $email=$_SESSION['email'];
-        $password=$_SESSION['password'];
+        $email=$_SESSION['email']??null;
+        $password=$_SESSION['password']??null;
         $connection =  DbConnection::get();
         $query="SELECT * FROM Users ".
             " WHERE email='{$email}'";
@@ -65,6 +65,8 @@ class UserService
         {
             return $row['id'];
         }
+        return null;
+
     }
     public static function getUserName()
     {
@@ -89,5 +91,24 @@ class UserService
     {
         session_start();
         session_destroy();
+    }
+    public static function isAdmin( mixed $userId):bool
+    {
+        if($userId===null)
+        {
+            return false;
+        }
+
+        $connection =  DbConnection::get();
+        $query="SELECT * FROM Users ".
+            " WHERE id='{$userId}' and role=1";
+        $result=mysqli_query($connection,$query);
+        $row = mysqli_fetch_assoc($result);
+        if(isset($row))
+        {
+            return true;
+        }
+
+        return false;
     }
 }
