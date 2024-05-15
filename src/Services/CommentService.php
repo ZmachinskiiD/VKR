@@ -6,12 +6,13 @@ use Up\Models\Comment;
 
 class CommentService
 {
-    public static function generateComment($buildingId,$userId,$commentText):void
+    public static function generateComment($buildingId,$userId,$commentText)
     {
         $connection = DbConnection::get();
         $result="INSERT INTO Comments(`buildingId`,`userId`,`text`) ".
             " VALUES('{$buildingId}','{$userId}','{$commentText}')";
         $connection->query($result);
+		return $connection->insert_id;
     }
     public static function getComments($buildingId):array
     {
@@ -23,7 +24,7 @@ class CommentService
         $comments = [];
         while ($row = mysqli_fetch_assoc($result))
         {
-            $comment=new Comment($row['CommentId'],$row['userId'],$row['buildingId'],$row['text'],$row['username']);
+            $comment=new Comment($row['CommentId'],$row['userId'],$row['buildingId'],htmlspecialchars($row['text']),htmlspecialchars($row['username']));
             $comments[]=$comment;
         }
         return $comments;

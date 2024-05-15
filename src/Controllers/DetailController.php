@@ -1,6 +1,8 @@
 <?php
 namespace Up\Controllers;
 use Core\Http\Request;
+use Core\Web\Json;
+use Exception;
 use Up\Services\BuildingService;
 use Up\Services\CommentService;
 use Up\Services\ImageService;
@@ -15,7 +17,14 @@ class DetailController extends BaseController
 		{
 			return $this->render('404');
 		}
-        $building=BuildingService::getBuildingInfo($id);
+		try
+		{
+			$building=BuildingService::getBuildingInfo($id);
+		}
+       catch (Exception $e)
+	   {
+		   return $this->render('404');
+	   }
         $buildingPhotos=ImageService::getPhotosOfBuilding($id);
         $comments=CommentService::getComments($id);
         $user=\Up\Services\UserService::getUserName();
@@ -36,4 +45,18 @@ class DetailController extends BaseController
             header("Location: /detail/{$id}/");
         }
     }
+	public function  addCommentAction(string $id)
+	{
+		if(UserService::authentificateUser())
+		{
+			$userId=UserService::getUserId();
+			$comment = Request::getBody()['comment'];
+			$commentId=CommentService::generateComment($id,  $userId, $comment);
+			header("Location: /detail/{$id}/");
+			echo Json::encode([
+				'result' => 'Y',
+				'data'=>"{$commentId}"
+			]);
+		}
+	}
 }

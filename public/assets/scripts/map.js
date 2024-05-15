@@ -31,3 +31,22 @@ async function initMap()
         map.addChild(defaultMarker).addChild(marker);
 
 }
+function getRoute(buildings)
+{
+    point=buildings[0];
+    buildings.sort( function (a, b)
+    {
+        var diffA = (Number(a[1]) - point[1])**2 + (Number(a[0]) - point[0])**2;
+        var diffB = (Number(b[1]) - point[1])**2 + (Number(b[0]) - point[0])**2;
+
+        if(diffA > diffB){
+            return 1;
+        } else if(diffA < diffB){
+            return -1;
+        } else {
+            return 0; // same
+        }
+
+    }
+    );
+}

@@ -1,24 +1,18 @@
 
 .films{
-  /* background-color: #E7A04E; */
   overflow-y: hidden;
   display: grid;
   grid-row-gap: 30px;
   margin-top:40px ;
-  /* margin-left:46px ; */
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  /* align-items: center; */
   justify-items: center;
 
 }
 .movie{
-  /* border-radius: 20px; */
   height: 700px;
   width: 370px;
   background-color: white;
   display:grid;
-  /* overflow: hidden; */
-  /*grid:rows 439px auto;*/
 }
 .poster{
   height:439px;
@@ -68,7 +62,6 @@ line-height: normal;
 
 .footer{
   display: grid;
-  /*grid-template-columns: 30% 70%;*/
   grid-row-gap: 10px;
   font-family: Open Sans;
   font-size: 10px;

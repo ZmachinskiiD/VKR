@@ -14,7 +14,7 @@
             <div class="movie_info">
                 <div class="name">
                     <p class="rus_name"><?=$building->getRusTitle(); ?></p>
-                    <p class="en_name"><?=$building->getDeuTitle(); ?></p>
+<!--                    <p class="en_name">--><?php //=$building->getDeuTitle(); ?><!--</p>-->
                 </div>
                 <div class="description">
 					<?=$building->getDescription(); ?>

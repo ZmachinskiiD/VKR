@@ -30,19 +30,6 @@ class ImageService
         return Request::getFiles()[$arrayName];
     }
 
-    public static function insertImageInDatabase(int $productId, string $filename, int $isCover): void
-    {
-        $imageData = [
-            'PRODUCT_ID' => $productId,
-            'PATH' => $filename,
-            'IS_COVER' => $isCover,
-        ];
-
-        if (!QueryBuilder::insert('IMAGE', $imageData, true))
-        {
-            throw new RuntimeException('Error adding an image: ' . MysqlConnection::get()->error);
-        }
-    }
 
     public static function insertImageInFolder(string $filename,string $path,string $form): void
     {
@@ -52,7 +39,6 @@ class ImageService
             throw new RuntimeException('Error adding an image: ' . "Файл не найден");
         }
     }
-
     public static function checkIfImage(): bool
     {
         $maxFileSize = 40 * 1024 * 1024;
@@ -93,9 +79,9 @@ class ImageService
         return md5(time() . $originalFilename) . "." . $ext;
     }
 
-    public static function renameAndSendAddImages(): array
+    public static function renameAndSendAddImages(string $form,$path): array
     {
-        $images = self::getImageArray('images');
+        $images = self::getImageArray($form,$path);
         $size = count($images['name']);
         $imageArray = [];
         if ($images["name"][0] !== "")
@@ -106,7 +92,7 @@ class ImageService
                 $ext = pathinfo($originalFilename, PATHINFO_EXTENSION);
                 $newName = md5(time() . $originalFilename) . "." . $ext;
                 $imageArray[] = $newName;
-                $target_file = self::$uploadDir . $newName;
+                $target_file = $path ."/". $newName;
 
                 if (!move_uploaded_file($images['tmp_name'][$i], $target_file))
                 {
@@ -118,51 +104,6 @@ class ImageService
         return $imageArray;
     }
 
-    /**
-     * @throws Exception
-     */
-    public static function deleteImage(int $productId): void
-    {
-        $query = "SELECT PATH, PRODUCT_ID FROM IMAGE WHERE PRODUCT_ID = ?";
-
-        $result = QueryBuilder::select($query, [$productId], true);
-
-        while ($row = mysqli_fetch_assoc($result))
-        {
-            $image = new Image(null, null, $row['PATH'], null);
-            unlink(self::$uploadDir . $image->getPath());
-        }
-    }
-
-    /**
-     * @throws Exception
-     */
-    public static function selectProductImages(int $productId): array
-    {
-        $imageArray = [];
-        $query = "SELECT PATH, PRODUCT_ID FROM IMAGE WHERE PRODUCT_ID = ? AND IS_COVER = 0";
-
-        $result = QueryBuilder::select($query, [$productId], true);
-        while ($row = mysqli_fetch_assoc($result))
-        {
-            $image = new Image(null, null, $row['PATH'], null);
-            $imageArray[] = $image;
-        }
-
-        return $imageArray;
-    }
-
-    /**
-     * @throws Exception
-     */
-    public static function getProductCover($productId): Image
-    {
-        $imageQuery = "SELECT ID, PATH, PRODUCT_ID FROM IMAGE WHERE IS_COVER = 1 AND PRODUCT_ID = ?";
-        $imageResult = QueryBuilder::select($imageQuery, [$productId], true);
-        $imageRow = mysqli_fetch_assoc($imageResult);
-
-        return new Image(null, $imageRow['PRODUCT_ID'], $imageRow['PATH'], 1);
-    }
 
     public static function insertImageInArchive(string $path, string $description)
     {
@@ -177,8 +118,6 @@ class ImageService
     {
         $photos = scandir(__DIR__."/../../public/assets/objects/BuildingImages/".$id."/");
         $photos=array_slice($photos,2);
-//        var_dump($photos);
-
 
         return $photos;
     }
@@ -197,9 +136,11 @@ class ImageService
         }
         return $images;
     }
-    public function getDir(): string
-    {
-        return $this->dir;
-    }
+   	public static function deleteImageFromArchive($id):void
+	{
+		$connection = DbConnection::get();
+		$query=" DELETE FROM photos where id={$id}";
+		$connection->query($query);
+	}
 
 }

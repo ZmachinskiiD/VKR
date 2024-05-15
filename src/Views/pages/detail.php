@@ -70,7 +70,7 @@ if($user===null)
     </div>
     </form>
 </article>
-<div class="container is-max-desktop"  >
+<div class="container is-max-desktop">
     <?php foreach ($comments as $comment):?>
     <article class="media" id="<?=$comment->getId()?>">
         <div class="media-content">
@@ -187,6 +187,7 @@ if($user===null)
         );
 
         const responseText = await response.json();
+        console.log(responseText)
         if (responseText.result !== 'Y')
         {
             console.log('error while updating');
@@ -196,5 +197,16 @@ if($user===null)
         {
             console.log(responseText.data);
         }
+    }
+    async function addComment(userName)
+    {
+        const response = await fetch('/addComment/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+                body: id,
+            }
+        );
     }
 </script>

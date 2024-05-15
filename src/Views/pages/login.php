@@ -9,7 +9,7 @@
                         type="email"
                         name="email"
                         class="input"
-                        placeholder="joe.bloggs@example.com"
+                        placeholder="email@example.com"
                     />
                 </label>
                 <label class="is-block mb-4">
@@ -19,24 +19,13 @@
                             type="password"
                             class="input"
                             minlength="6"
-                            placeholder="(must be 6+ chars)"
+                            placeholder=""
                             required
                     />
                 </label>
 
                 <div class="mb-4">
-                    <button type="submit" class="button is-link px-4">Зарегистрироваться</button>
+                    <button type="submit" class="button is-link px-4">Войти</button>
                 </div>
 
-                <div>
-                    <div class="is-size-7 has-text-right">
-                        by
-                        <a
-                            href="https://herotofu.com/start"
-                            class="has-text-dark"
-                            target="_blank"
-                        >HeroTofu</a
-                        >
-                    </div>
-                </div>
             </form>

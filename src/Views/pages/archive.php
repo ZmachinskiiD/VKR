@@ -1,7 +1,6 @@
 <?php
 /**
  * @var array $data
- * @var string $moviePosters
  * @var Photo[] $images
  */
 
@@ -16,7 +15,7 @@ use Up\Models\Photo;
                 <div class="card-image">
                     <figure class="image is-4by3">
                         <img
-                                
+
                                 src="<?=$image->getPath()?>"
                                 alt="Placeholder image"
                         />

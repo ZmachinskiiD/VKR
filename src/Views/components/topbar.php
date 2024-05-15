@@ -3,7 +3,7 @@ $user=\Up\Services\UserService::getUserName();
 ?>
 <div class="tabs is-centered is-fullwidth">
     <section class="hero">
-        <div class="hero-body">
+        <div class="hero-body" onclick="window.location.href='/'">
             <p class="title">Здания</p>
             <p class="subtitle">Кенигсбергского университета</p>
         </div>
@@ -15,7 +15,15 @@ $user=\Up\Services\UserService::getUserName();
         <span class="icon is-small"
         ><i class="fas fa-image" aria-hidden="true"></i
             ></span>
-                <span><a href="/">На главную</a></span>
+                <span><a href="/?doesExist=true">Сохранившиеся здания</a></span>
+            </a>
+        </li>
+        <li>
+            <a>
+        <span class="icon is-small"
+        ><i class="fas fa-image" aria-hidden="true"></i
+            ></span>
+                <span><a href="/?doesExist=false">Исчезнувшие здания</a></span>
             </a>
         </li>
         <li>

@@ -9,7 +9,7 @@
                         name="email"
                         type="email"
                         class="input"
-                        placeholder="joe.bloggs@example.com"
+                        placeholder="email@example.com"
                     />
                 </label>
                 <label class="is-block mb-4">
@@ -24,13 +24,13 @@
                     />
                 </label>
                 <label class="is-block mb-4">
-                    <span class="is-block mb-2">Пароль</span>
+                    <span class="is-block mb-2">8+символов. Хотя бы 1 буква и цифра</span>
                     <input
                             name="password"
                             type="password"
                             class="input"
                             minlength="6"
-                            placeholder="(must be 6+ chars)"
+                            placeholder="Введите пароль"
                             required
                     />
                 </label>
@@ -41,17 +41,10 @@
                             type="password"
                             class="input"
                             minlength="6"
-                            placeholder="(must be 6+ chars)"
+                            placeholder="Подтвердите пароль"
                             required
                     />
                 </label>
-                <div class="mb-4">
-                    <label>
-                        <input type="checkbox" name="tos" value="yes" required />
-                        <span>I agree with the TOS</span>
-                    </label>
-                </div>
-
                 <div class="mb-4">
                     <button type="submit" class="button is-link px-4">Зарегистрироваться</button>
                 </div>

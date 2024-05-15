@@ -3,6 +3,7 @@
 namespace Up\Services;
 use Core\DB\DbConnection;
 use Core\Http\Request;
+use Exception;
 use Up\Models\Building;
 
 class BuildingService
@@ -39,19 +40,25 @@ class BuildingService
 
 	public static function getBuildingInfo($id)
 	{
-		$connection =  DbConnection::get();
-		$query = "SELECT * FROM `buildings`  WHERE `id`={$id}";
-		$result = mysqli_query($connection, $query);
-		if (!$result) {
-			throw new Exception(mysqli_error($connection));
-		}
-		$row = mysqli_fetch_assoc($result);
-		$building = new Building(
-			$row['id'], $row['rus_name'], $row['deu_name'], $row['build_date'],
-			$row['doesExist'], $row['author_id'], $row['description'],
-			$row['logoPath'], $row['geolocation'], $row['location']
+			$connection = DbConnection::get();
+			$query = "SELECT * FROM `buildings`  WHERE `id`={$id}";
+			$result = mysqli_query($connection, $query);
+			if (!$result)
+			{
+				throw new Exception(mysqli_error($connection));
+			}
+			$row = mysqli_fetch_assoc($result);
+			if($row===null)
+			{
+				throw new Exception('Несуществующее здание.');
+			}
+			$building = new Building(
+				$row['id'], $row['rus_name'], $row['deu_name'], $row['build_date'],
+				$row['doesExist'], $row['author_id'], $row['description'],
+				$row['logoPath'], $row['geolocation'], $row['location']
 
-		);
+			);
+
 		return $building;
 	}
 
@@ -78,9 +85,26 @@ class BuildingService
         }
         return $id;
 	}
-    /**
-     * @return bool|\mysqli_result
-     */
+	public static function updateBuilding():void
+	{
+		$request=Request::getBody();
+		$id=$request['id'];
+		$rus_name=$request['rus_name'];
+		$deu_name=$request['deu_name'];
+		$description=$request['description'];
+		$location=$request['location'];
+		$geolocation=$request['geolocation'];
+		$buildDate=$request['time'];
+		$doesExist=$request['doesExist'];
+
+		$connection = DbConnection::get();
+		$result=" UPDATE `buildings` SET `rus_name`='{$rus_name}',`deu_name`='{$deu_name}',"
+		."`description`='{$description}',`build_date`='{$buildDate}'"
+		.",`doesExist`='{$doesExist}',`location`='{$location}',`geolocation`='{$geolocation}' "
+		." WHERE id={$id}";
+		$connection->query($result);
+
+	}
     public static function getBuildingsForMap()
     {
         $connection =  DbConnection::get();
@@ -112,7 +136,7 @@ class BuildingService
     public static function getBuildingsForAdmin():array
     {
         $connection =  DbConnection::get();
-        $query="SELECT* FROM buildings";
+        $query="SELECT * FROM buildings";
 
         $result = mysqli_query($connection, $query);
         $buildings = [];
@@ -167,4 +191,11 @@ class BuildingService
         }
         return true;
     }
+	public static function addLogo($name,$id)
+	{
+		$connection = DbConnection::get();
+		$result=" UPDATE `buildings` SET `logoPath`='{$name}'"
+			." WHERE id={$id}";
+		$connection->query($result);
+	}
 }

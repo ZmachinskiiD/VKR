@@ -34,7 +34,7 @@ class UserService
         return false;
 
     }
-    public static function authentificateUser()
+    public static function authentificateUser($admin=false)
     {
         session_start();
         $email=$_SESSION['email']??null;
@@ -42,6 +42,11 @@ class UserService
         $connection =  DbConnection::get();
         $query="SELECT * FROM Users ".
             " WHERE email='{$email}'";
+		if($admin===true)
+		{
+			$condition=" AND role=1 ";
+			$query .= $condition;
+		}
         $result=mysqli_query($connection,$query);
         $row = mysqli_fetch_assoc($result);
         if(isset($row))
