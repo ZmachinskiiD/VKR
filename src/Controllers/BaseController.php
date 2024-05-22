@@ -47,6 +47,17 @@ class BaseController
 		return ob_get_clean();
 	}
 
+
+	protected function getComponentPath($component):string|\Exception
+	{
+		$componentPath = ROOT . "/src/Views/components/$component.php";
+		if (!preg_match('/^[0-9A-Za-z\/_-]+$/', $component))
+		{
+			throw new \RuntimeException('Invalid template path');
+		}
+
+		return $componentPath;
+	}
 	protected function renderComponent($component, $params = []):string|\Exception
 	{
 		$componentPath = $this->getComponentPath($component);
@@ -59,16 +70,5 @@ class BaseController
 		ob_start();
 		include_once $componentPath;
 		return ob_get_clean();
-	}
-
-	protected function getComponentPath($component):string|\Exception
-	{
-		$componentPath = ROOT . "/src/Views/components/$component.php";
-		if (!preg_match('/^[0-9A-Za-z\/_-]+$/', $component))
-		{
-			throw new \RuntimeException('Invalid template path');
-		}
-
-		return $componentPath;
 	}
 }

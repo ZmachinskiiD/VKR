@@ -1,6 +1,5 @@
 <?php
 /**
- * @var bool $siteElements
  * @var \Up\Models\Building[] $buildings
  * @var $buildingCards
  */

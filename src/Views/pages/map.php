@@ -9,9 +9,6 @@
 </div>
 
 <script type="text/javascript">
-    deleteFeatured=document.getElementById("deleteFeatured");
-    deleteUsual=document.getElementById("deleteUsual");
-    let buildings2=<?php echo json_encode($buildings)?>;
     ymaps.ready(init);
     function init()
     {
@@ -22,17 +19,11 @@
             {
             center: [54.704, 20.503],
             zoom: 10
-
             },
         {
-            restrictMapArea: [
-                [54.752266, 20.443471],
-                [54.688278, 20.549792]
-            ]
+            restrictMapArea: [[54.752266, 20.443471], [54.688278, 20.549792]]
         },
-            {
-                searchControlProvider: 'yandex#search'
-            }
+            {searchControlProvider: 'yandex#search'}
 
         );
         let buildings=<?php echo json_encode($buildings)?>;
@@ -45,12 +36,9 @@
                 routeBuildings.push(building['geolocation'].split(", "))
             }
             else
-            {
-                iconColor='blue'
-            }
+            {iconColor='blue'}
             myMap.geoObjects.add(new ymaps.Placemark(building['geolocation'].split(", "), {
                 balloonContentHeader: building['rus_name'],
-                balloonContentBody: "Содержимое <em>балуна</em> метки",
                 balloonContentFooter: "<a href=/detail/?id=10>Пройти на страницу здания</a>",
                 hintContent:  building['rus_name'],
                 iconColor: '#3b5998'
@@ -58,8 +46,6 @@
                 preset: 'islands#icon',
 
                     iconColor: iconColor
-
-
             }))
         });
         var button = new ymaps.control.Button
@@ -102,20 +88,6 @@
         )
         myMap.controls.add(button, { float: 'right', floatIndex: 100 }
         );
-        // routeBuildings=getRoute(routeBuildings);
-        // if(routeBuildings.length>1)
-        // {
-        //     multiRoute = new ymaps.multiRouter.MultiRoute({
-        //         referencePoints: routeBuildings,
-        //         params: {
-        //             //Тип маршрутизации - пешеходная маршрутизация.
-        //             routingMode: 'pedestrian'
-        //         }
-        //     }, {
-        //         boundsAutoApply: true
-        //     });
-        //     myMap.geoObjects.add(multiRoute);
-        // }
     }
     function getRoute(buildings)
     {

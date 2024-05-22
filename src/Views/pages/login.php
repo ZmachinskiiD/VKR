@@ -23,7 +23,9 @@
                             required
                     />
                 </label>
-
+                <div>
+                    Нет аккаунта? <a href="/register/">Зарегистрируйтесь</a>
+                </div>
                 <div class="mb-4">
                     <button type="submit" class="button is-link px-4">Войти</button>
                 </div>

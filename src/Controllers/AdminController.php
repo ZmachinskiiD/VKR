@@ -2,6 +2,7 @@
 namespace Up\Controllers;
 use Core\Http\Request;
 use Core\Web\Json;
+use Exception;
 use Up\Controllers\BaseController;
 use Up\Services\BuildingService;
 use Up\Services\ImageService;
@@ -20,7 +21,7 @@ class AdminController extends BaseController
         else
         {
             header("Location: /login/");
-            return("HEH");
+            return("NO ACTION");
         }
     }
     public function createAction(): string
@@ -32,6 +33,14 @@ class AdminController extends BaseController
 			{
                 $id = BuildingService::insertBuilding();
                 $imageService = new ImageService($id);
+				try
+				{
+					$imageService::checkIfImage();
+				}
+				catch (Exception $e)
+				{
+					return $this->render('404');
+				}
                 $newName = $imageService::renameImage("mainPhoto");
                 $imageService::insertImageInFolder($newName, "./assets/objects/BuildingImages/{$id}", "mainPhoto");
 				BuildingService::addLogo($newName,$id);
@@ -47,7 +56,7 @@ class AdminController extends BaseController
     }
     public function deleteAction($id)
     {
-        if(UserService::authentificateUser(true))
+        if(UserService::authentificateUser(true)&&is_numeric($id))
         {
                 BuildingService::deleteBuilding($id);
                 header("Location: /admin/main/");
@@ -55,7 +64,7 @@ class AdminController extends BaseController
         else
         {
             header("Location: /login/");
-            return("HEH");
+            return("NO ACTION");
         }
     }
     public function photoAction()
@@ -96,7 +105,8 @@ class AdminController extends BaseController
 			if (Request::isGet())
 			{
 				$building = BuildingService::getBuildingInfo($id);
-				$params=['building'=>$building];
+				$buildingPhotos=ImageService::getPhotosOfBuilding($id);
+				$params=['building'=>$building,'buildingPhotos'=>$buildingPhotos];
 				return $this->render('updateForm', $params, 'adminLayout');
 			}
 			else
@@ -111,5 +121,39 @@ class AdminController extends BaseController
 			return("HEH");
 		}
     }
+	public function changePhoto()
+	{
+		header('Content-Type: application/json');
+		$data = (file_get_contents('php://input'));
+		$newData=json_decode($data,true);
+		$image=$newData['image'];
+		$id=$newData['id'];
+		echo Json::encode([
+			'result' => 'Y',
+			'data'=>"{$image}"
+		]);
+		BuildingService::addLogo($image,$id);
+	}
+	public function changePhotoAction()
+	{
+		if(UserService::authentificateUser(true))
+		{
+			$description = Request::getBody()['text'];
+			$id = Request::getBody()['id'];
+			if ((is_numeric($id)) && is_string($description))
+			{
+				$id = (int)$id;
+				var_dump($id);
+				var_dump($description);
+				ImageService::changeArchiveImageDescription($id, $description);
+			}
+			header("Location: /admin/archive/");
+		}
+		else
+		{
+			header("Location: /login/");
+		}
+	}
+
 }
 

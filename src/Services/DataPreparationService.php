@@ -20,15 +20,4 @@ class DataPreparationService
 		}
 		return $clause;
 	}
-
-	public static function checkIfIdExists(?string $id, array $movies): bool
-	{
-		if ($id === null) {
-			return false;
-		}
-		if (array_search($id, array_column($movies, 'id')) !== false) {
-			return true;
-		}
-		return false;
-	}
 }

@@ -32,7 +32,8 @@ class DetailController extends BaseController
         $isAdmin=UserService::isAdmin($userId);
         $isFeatured=BuildingService::isFeaturedWithUser($id,$userId);
         $params = ['id'=>$id,'building'=>$building,'buildingPhotos'=>$buildingPhotos,
-            'comments'=>$comments,'user'=>$user,'isFeatured'=>$isFeatured,'userId'=>$userId,'isAdmin'=>$isAdmin];
+            'comments'=>$comments,'user'=>$user,'isFeatured'=>$isFeatured,
+			'userId'=>$userId, 'isAdmin'=>$isAdmin];
         return $this->render('detail', $params);
     }
     public function  CommentAction(string $id)

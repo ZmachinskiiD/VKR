@@ -18,18 +18,19 @@ use Up\Models\Photo;
                     </figure>
                 </div>
                 <div class="card-content">
-                    <div class="content">
-						<?=$image->getDescription()?>
-                    </div>
+                    <form action="/admin/changePhoto/" method="post">
+                        <input type="hidden" name="id" value=<?=$image->getId()?>>
+                    <textarea  name=text rows=6 cols="40" class="content"><?=$image->getDescription()?></textarea>
                 </div>
                 <nav class="level">
                     <div class="level-item">
                 <button type="button" onclick="deletePhoto(<?=$image->getId()?>)">X</button>
                     </div>
                     <div class="level-item">
-                        <button type="button" >Редакровать описание</button>
+                        <button type="submit" >Редакровать описание</button>
                     </div>
                 </nav>
+                </form>
             </div>
 		<?php endforeach;?>
     </div>

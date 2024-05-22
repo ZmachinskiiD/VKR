@@ -116,4 +116,21 @@ class UserService
 
         return false;
     }
+	public static function checkIfExist($email)
+	{
+
+		$connection =  DbConnection::get();
+		$query="SELECT * FROM Users ".
+			" WHERE email='{$email}'";
+		$result=mysqli_query($connection,$query);
+		$row = mysqli_fetch_assoc($result);
+		if(isset($row))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }

@@ -8,15 +8,19 @@
  * @var $userId
  * @var $isAdmin
  */
-$sanitized = htmlspecialchars($building->getDescription(), ENT_QUOTES);
-$amogus=str_replace(array("\r\n", "\n"), array("<br />", "<br />"), $sanitized);
+$info =null;
+if($building->getDescription()!==null)
+{
+	$sanitized = htmlspecialchars($building->getDescription(), ENT_QUOTES);
+	$info=str_replace(array("\r\n", "\n"), array("<br />", "<br />"), $sanitized);
+}
 if($user===null)
 {
     $user="undefined";
 }
 ?>
-<div class="content has-background-light">
-    <div class="block">
+<div class="content has-background-light is-family-primary">
+    <div class="block ">
             <div class="block">
             <nav class="level">
             <div class="D_rus_name">
@@ -30,9 +34,23 @@ if($user===null)
                 <?=$building->getDeuTitle()?>
             </div>
             </div>
+            <span class="level">
+            <div class="block">
+                <div class="D_deu_name">
+                    <?=$building->getAdress()?>
+                </div>
+            </div>
+            <?php if($building->getYearOfBuild()!=NULL):?>
+            <div class="block">
+                <div class="D_deu_name">
+                    <?=$building->getYearOfBuild()?> Год
+                </div>
+            </div>
+            <?php endif;?>
+            </span>
             <div class="block">
             <div class="D_building_info">
-                <?=$amogus?>
+                <?=$info?>
             </div>
             </div>
     </div>
@@ -134,23 +152,15 @@ if($user===null)
         {
             const response = await fetch('/addToFeatured/', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8',
-                    },
+                    headers: {'Content-Type': 'application/json;charset=utf-8',},
                     body: id,
                 }
             );
-
             const responseText = await response.json();
             if (responseText.result !== 'Y')
-            {
-                console.log('error while updating');
-
-            }
+            {console.log('error while updating');}
             else
-            {
-                console.log(responseText.data);
-            }
+            {console.log(responseText.data);}
         }
         async function deleteFromFeatured()
         {
@@ -177,26 +187,16 @@ if($user===null)
     }
     async function deleteCommentFromDatabase(id)
     {
-        const response = await fetch('/deleteComment/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-                },
-                body: id,
-            }
+        const response = await fetch('/deleteComment/', {method: 'POST',
+                headers: {'Content-Type': 'application/json;charset=utf-8',},
+                body: id,}
         );
-
         const responseText = await response.json();
         console.log(responseText)
         if (responseText.result !== 'Y')
-        {
-            console.log('error while updating');
-
-        }
+        {console.log('error while updating');}
         else
-        {
-            console.log(responseText.data);
-        }
+        {console.log(responseText.data);}
     }
     async function addComment(userName)
     {

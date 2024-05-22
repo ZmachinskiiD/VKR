@@ -93,5 +93,15 @@ class UserController extends BaseController
         ]);
 
     }
+	public function checkEmailAction()
+	{
+		header('Content-Type: application/json');
+		$email = file_get_contents('php://input');
+		$result=UserService::checkIfExist($email);
+		echo Json::encode([
+			'result' => 'Y',
+			'data'=>$result
+		]);
+	}
 
 }

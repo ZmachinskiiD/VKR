@@ -3,10 +3,10 @@ namespace Up\Models;
 class Building{
     private ?int $id;
     private string $rus_title;
-    private string $deu_title;
+    private ?string $deu_title;
     private int $yearOfBuild;
     private ?int $author_id;
-    private string $description;
+    private ?string $description;
     private ?string $adress;
     private bool $doesExist;
     private ?string $Logopath;
@@ -18,11 +18,11 @@ class Building{
     {
         $this->id=$id??null;
         $this->rus_title=$rus_title;
-        $this->deu_title=$deu_title??"placeholder";
+        $this->deu_title=$deu_title??null;
         $this->yearOfBuild=$yearOfBuild??1;
         $this->doesExist=$doesExist??false;
         $this->author_id=$author_id??1;
-        $this->description=$description??"amogus";
+        $this->description=$description??null;
         $this->Logopath=$Logopath??'1.png';
         $this->geolocation=$geolocation??"djjdjdjdjdj";
         $this->adress=$adress??"hhhhh";
@@ -37,7 +37,7 @@ class Building{
         return $this->rus_title;
     }
 
-    public function getDeuTitle(): string
+    public function getDeuTitle(): mixed
     {
         return $this->deu_title;
     }
@@ -52,7 +52,7 @@ class Building{
         return $this->author_id;
     }
 
-    public function getDescription(): string
+    public function getDescription(): mixed
     {
         return $this->description;
     }

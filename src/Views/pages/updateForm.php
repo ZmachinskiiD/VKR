@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \Up\Models\Building $building
+ * @var $buildingPhotos
  */
 if($building->isDoesExist()===true)
 {
@@ -44,7 +45,7 @@ else
     <div class="field">
         <label class="label">Время постройки</label>
         <div class="control">
-            <input class="input" type="text" name="time" value="<?=$building->getYearOfBuild()?>"placeholder="Введите время">
+            <input class="input" type="number" name="time" min=1200 max=1945 value="<?=$building->getYearOfBuild()?>"placeholder="Введите время">
         </div>
     </div>
     <div class="field">
@@ -69,8 +70,49 @@ else
 
 <div class="field is-grouped">
     <div class="control">
-        <button class="button is-link" >Submit</button>
+        <button class="button is-link" >Отправить</button>
     </div>
 </div>
 </form>
+
 </div>
+<div class="container">
+    <div class="block">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+				<?php foreach($buildingPhotos as $buildingPhoto):?>
+                    <div class="swiper-slide" onclick=setCover("<?=$buildingPhoto?>","<?=$building->getId()?>")>
+                        <img src="<?="/assets/objects/BuildingImages/{$building->getId()}/".$buildingPhoto?> " class="slider-photo">
+                    </div>
+				<?php endforeach;?>
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
+        </div>
+    </div>
+</div>
+<script src="/assets/scripts/swiper-bundle.min.js"></script>
+<script src="/assets/scripts/swiper.js"></script>
+<script>
+    async function setCover(image,id)
+    {
+        const response = await fetch('/changePhoto/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+                body: JSON.stringify({"image":image,"id":id})
+            }
+        );
+        const responseText = await response.json();
+        if (responseText.result !== 'Y')
+        {
+            console.log('error while updating');
+        }
+        else
+        {
+            console.log(responseText.data);
+        }
+    }
+</script>

@@ -29,6 +29,9 @@ Router::post('/addToFeatured/', [new Up\Controllers\UserController(), 'featuredA
 Router::post('/deleteFromFeatured/', [new Up\Controllers\UserController(), 'deleteFeaturedAction']);
 Router::post('/deleteComment/', [new Up\Controllers\UserController(), 'deleteCommentAction']);
 Router::post('/deletePhoto/', [new Up\Controllers\AdminController(), 'deletePhoto']);
+Router::post('/changePhoto/', [new Up\Controllers\AdminController(), 'changePhoto']);
+Router::post('/checkemail/', [new Up\Controllers\UserController(), 'checkEmailAction']);
+Router::post('/admin/changePhoto/', [new Up\Controllers\AdminController(), 'changePhotoAction']);
 
 
 

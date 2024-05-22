@@ -47,8 +47,8 @@ class ImageService
         {
             throw new RuntimeException('File too big');
         }
-        $image = self::getImageArray('image');
-        $images = self::getImageArray('images');
+        $image = self::getImageArray('mainPhoto');
+        $images = self::getImageArray('fileToUpload');
         $size = count($images['name']);
         if (!in_array(mime_content_type($image['tmp_name']), $types, true))
         {
@@ -60,7 +60,7 @@ class ImageService
             {
                 if (!in_array(mime_content_type($images['tmp_name'][$i]), $types, true))
                 {
-                    throw new RuntimeException('Invalid additional image');
+                    throw new RuntimeException('Invalid additional images');
                 }
             }
         }
@@ -140,6 +140,15 @@ class ImageService
 	{
 		$connection = DbConnection::get();
 		$query=" DELETE FROM photos where id={$id}";
+		$connection->query($query);
+	}
+
+	public static function changeArchiveImageDescription(int $id, string $description)
+	{
+		$connection = DbConnection::get();
+		$description=mysqli_real_escape_string($connection,$description);
+		$query=" UPDATE `photos` SET `description`='{$description}' ".
+		"where id={$id}";
 		$connection->query($query);
 	}
 

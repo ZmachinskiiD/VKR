@@ -30,7 +30,7 @@
     <div class="field">
         <label class="label">Время постройки</label>
         <div class="control">
-            <input class="input" type="number" name="time" placeholder="Введите время">
+            <input class="input" type="number" min=1200 max=1945 name="time" placeholder="Введите время">
         </div>
     </div>
     <div class="field">
@@ -70,7 +70,7 @@
 
 <div class="field is-grouped">
     <div class="control">
-        <button class="button is-link" >Submit</button>
+        <button class="button is-link" >Отправить</button>
     </div>
 </div>
 </form>

@@ -13,20 +13,13 @@ class BuildingService
 		$connection = DbConnection::get();
 		$clause = DataPreparationService::getToString($doesExist, "doesExist");
 		$clause = mysqli_real_escape_string($connection, $clause);
-		$query = "SELECT `id`, `rus_name`, `deu_name`,`description`, `location`,doesExist`, `logoPath`"
-			. " FROM BUILDINGS "
-			. " WHERE {$clause} ";
 		$result = mysqli_query($connection, "SELECT 
     `id`, `rus_name`, `deu_name`,
-    `description`, `location`,
-    `doesExist`, `logoPath`
+    `description`, `location`,`doesExist`, `logoPath`
     FROM `buildings` 
     WHERE {$clause};");
 		if (!$result)
-        {
-			throw new Exception(mysqli_error($connection));
-		}
-
+        {throw new Exception(mysqli_error($connection));}
 		$buildings = [];
 		while ($row = mysqli_fetch_assoc($result))
         {
@@ -64,17 +57,17 @@ class BuildingService
 
 	public static function insertBuilding():int
 	{
+		$connection = DbConnection::get();
         $request=Request::getBody();
 
-		$rus_name=$request['rus_name'];
-        $deu_name=$request['deu_name'];
-        $description=$request['description'];
-        $location=$request['location'];
-        $geolocation=$request['geolocation'];
+		$rus_name=mysqli_real_escape_string($connection,$request['rus_name']);
+        $deu_name=mysqli_real_escape_string($connection,$request['deu_name']);
+        $description=mysqli_real_escape_string($connection,$request['description']);
+        $location=mysqli_real_escape_string($connection,$request['location']);
+        $geolocation=mysqli_real_escape_string($connection,$request['geolocation']);
         $buildDate=$request['time'];
         $doesExist=$request['doesExist'];
 
-        $connection = DbConnection::get();
         $result="INSERT INTO buildings(`rus_name`,`deu_name`,`description`,`build_date`,`doesExist`,`location`,`geolocation`)"
             ."    VALUES('{$rus_name}','{$deu_name}','{$description}','{$buildDate}','{$doesExist}','{$location}','{$geolocation}')";
         $connection->query($result);

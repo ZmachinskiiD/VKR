@@ -96,7 +96,7 @@ $user=\Up\Services\UserService::getUserName();
                     }
                     else
                     {
-                        location.href = '/login/';
+                        location.href = '/register/';
                     }
                 }
                 );
