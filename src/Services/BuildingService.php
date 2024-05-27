@@ -191,4 +191,9 @@ class BuildingService
 			." WHERE id={$id}";
 		$connection->query($result);
 	}
+
+	public static function addPhotos()
+	{
+
+	}
 }

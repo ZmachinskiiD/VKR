@@ -152,4 +152,9 @@ class ImageService
 		$connection->query($query);
 	}
 
+	public static function deleteImageFromFolder(mixed $image, mixed $id)
+	{
+		unlink("./assets/objects/BuildingImages/{$id}/{$image}");
+	}
+
 }

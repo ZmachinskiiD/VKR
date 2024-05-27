@@ -66,9 +66,12 @@ else
             Нет
         </label>
     </div>
+    <div>
+        <input type="file" name="fileToUpload[]" id="fileToUpload" multiple="multiple">
+    </div>
 
 
-<div class="field is-grouped">
+    <div class="field is-grouped">
     <div class="control">
         <button class="button is-link" >Отправить</button>
     </div>
@@ -81,7 +84,7 @@ else
         <div class="swiper">
             <div class="swiper-wrapper">
 				<?php foreach($buildingPhotos as $buildingPhoto):?>
-                    <div class="swiper-slide" onclick=setCover("<?=$buildingPhoto?>","<?=$building->getId()?>")>
+                    <div class="swiper-slide" id="<?=$buildingPhoto?>">
                         <img src="<?="/assets/objects/BuildingImages/{$building->getId()}/".$buildingPhoto?> " class="slider-photo">
                     </div>
 				<?php endforeach;?>
@@ -91,28 +94,20 @@ else
 
         </div>
     </div>
+    <div class="block">
+    <nav class="level">
+        <button type="button"
+            class="button is-link"
+        onclick=changeLogo(swiper,<?php echo json_encode($buildingPhotos); ?>,"<?=$building->getId()?>")
+        >Установить как обложку здания</button>
+        <button type="button" class="button is-danger"
+        onclick=delimage(swiper,<?php echo json_encode($buildingPhotos); ?>,"<?=$building->getId()?>")
+        >
+           Удалить фотографию</button>
+    </nav>
+    </div>
 </div>
+
 <script src="/assets/scripts/swiper-bundle.min.js"></script>
 <script src="/assets/scripts/swiper.js"></script>
-<script>
-    async function setCover(image,id)
-    {
-        const response = await fetch('/changePhoto/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-                },
-                body: JSON.stringify({"image":image,"id":id})
-            }
-        );
-        const responseText = await response.json();
-        if (responseText.result !== 'Y')
-        {
-            console.log('error while updating');
-        }
-        else
-        {
-            console.log(responseText.data);
-        }
-    }
-</script>
+<script src="/assets/scripts/setImage.js?3"></script>

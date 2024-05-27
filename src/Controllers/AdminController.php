@@ -112,6 +112,11 @@ class AdminController extends BaseController
 			else
 			{
 				BuildingService::updateBuilding();
+				if(true)
+				{
+					$imageService = new ImageService($id);
+					$imageService::renameAndSendAddImages("fileToUpload", "./assets/objects/BuildingImages/{$id}");
+				}
 				header("Location: /admin/main/");
 			}
 		}
@@ -148,6 +153,26 @@ class AdminController extends BaseController
 				ImageService::changeArchiveImageDescription($id, $description);
 			}
 			header("Location: /admin/archive/");
+		}
+		else
+		{
+			header("Location: /login/");
+		}
+	}
+	public function deletePhotoAction()
+	{
+		if(UserService::authentificateUser(true))
+		{
+			header('Content-Type: application/json');
+			$data = (file_get_contents('php://input'));
+			$newData=json_decode($data,true);
+			$image=$newData['image'];
+			$id=$newData['id'];
+			echo Json::encode([
+				'result' => 'Y',
+				'data'=>"{$image}"
+			]);
+			ImageService::deleteImageFromFolder($image,$id);
 		}
 		else
 		{

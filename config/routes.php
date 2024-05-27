@@ -32,6 +32,8 @@ Router::post('/deletePhoto/', [new Up\Controllers\AdminController(), 'deletePhot
 Router::post('/changePhoto/', [new Up\Controllers\AdminController(), 'changePhoto']);
 Router::post('/checkemail/', [new Up\Controllers\UserController(), 'checkEmailAction']);
 Router::post('/admin/changePhoto/', [new Up\Controllers\AdminController(), 'changePhotoAction']);
+Router::post('/admin/deletePhoto/', [new Up\Controllers\AdminController(), 'deletePhotoAction']);
+
 
 
 

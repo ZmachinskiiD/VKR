@@ -69,7 +69,6 @@
                     multiRoute = new ymaps.multiRouter.MultiRoute({
                         referencePoints: routeBuildings,
                         params: {
-                            //Тип маршрутизации - пешеходная маршрутизация.
                             routingMode: 'pedestrian'
                         }
                     }, {
