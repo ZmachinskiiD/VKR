@@ -39,7 +39,7 @@
             {iconColor='blue'}
             myMap.geoObjects.add(new ymaps.Placemark(building['geolocation'].split(", "), {
                 balloonContentHeader: building['rus_name'],
-                balloonContentFooter: "<a href=/detail/?id=10>Пройти на страницу здания</a>",
+                balloonContentFooter: `<a href=/detail/${building['id']}/>Пройти на страницу здания</a>`,
                 hintContent:  building['rus_name'],
                 iconColor: '#3b5998'
             }, {

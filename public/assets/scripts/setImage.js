@@ -40,13 +40,13 @@ async function deleteImage(image,id)
         console.log(responseText.data);
     }
 }
-function changeLogo(swiper,imageArray,id)
+function changeLogo(swiper,id,imageArray)
 {
     imageId=swiper.activeIndex
     image=imageArray[imageId]
     setCover(image,id)
 }
-function delimage(swiper,imageArray,id)
+function delimage(swiper,id,imageArray)
 {
     imageId=swiper.activeIndex
     image=imageArray[imageId]

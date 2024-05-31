@@ -27,7 +27,7 @@ use Up\Models\Photo;
                 <button type="button" onclick="deletePhoto(<?=$image->getId()?>)">X</button>
                     </div>
                     <div class="level-item">
-                        <button type="submit" >Редакровать описание</button>
+                        <button type="submit" >Редактировать описание</button>
                     </div>
                 </nav>
                 </form>
@@ -47,39 +47,4 @@ use Up\Models\Photo;
         </figure>
     </form>
 </div>
-<script>
-    photo=document.getElementById("photo");
-    preview=document.getElementById("preview");
-    photo.onchange = evt => {
-        const [file] = photo.files
-        if (file) {
-            preview.src = URL.createObjectURL(file)
-        }
-    }
-</script>
-<script>
-    async function deletePhoto(id)
-    {
-        const response = await fetch('/deletePhoto/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-                },
-                body: id,
-            }
-        );
-        const responseText = await response.json();
-        console.log("HERE")
-        if (responseText.result !== 'Y')
-        {
-            console.log('error while deleting');
-
-        }
-        else
-        {
-            console.log(responseText.data);
-            comment=document.getElementById(id);
-            comment.remove();
-        }
-    }
-</script>
+<script src="/assets/scripts/adminArchive.js"></script>

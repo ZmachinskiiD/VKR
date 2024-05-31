@@ -69,6 +69,7 @@ if($user===null)
         </div>
     </div>
 </div>
+<?php if($userId):?>
 <article class="media">
     <form action="/detail/<?=$id?>/" method="post">
     <div class="media-content">
@@ -88,6 +89,7 @@ if($user===null)
     </div>
     </form>
 </article>
+<?php endif; ?>
 <div class="container is-max-desktop">
     <?php foreach ($comments as $comment):?>
     <article class="media" id="<?=$comment->getId()?>">
@@ -113,6 +115,7 @@ if($user===null)
 
 <script src="/assets/scripts/swiper-bundle.min.js"></script>
 <script src="/assets/scripts/swiper.js"></script>
+<!--<script src="/assets/scripts/createForm.js"></script>-->
 <script>
     function deleteComment(Id,userId,commentUser,isAdmin)
     {

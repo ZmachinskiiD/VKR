@@ -133,11 +133,11 @@ class AdminController extends BaseController
 		$newData=json_decode($data,true);
 		$image=$newData['image'];
 		$id=$newData['id'];
+		BuildingService::addLogo($image,$id);
 		echo Json::encode([
 			'result' => 'Y',
 			'data'=>"{$image}"
 		]);
-		BuildingService::addLogo($image,$id);
 	}
 	public function changePhotoAction()
 	{

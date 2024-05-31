@@ -18,7 +18,7 @@
                             name="password"
                             type="password"
                             class="input"
-                            minlength="6"
+                            minlength="8"
                             placeholder=""
                             required
                     />

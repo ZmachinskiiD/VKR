@@ -32,7 +32,7 @@
 <footer class="footer">
     <div class="content has-text-centered">
         <p>
-            <strong>КёнигГебойде</strong> by <a href="https://jgthms.com">Dmitrii Zmachinskii</a>.
+            <strong>КёнигГебойде</strong> by <a href="https://github.com/ZmachinskiiD/VKR">Dmitrii Zmachinskii</a>.
             БФУ 2024
         </p>
     </div>

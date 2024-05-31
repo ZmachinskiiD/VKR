@@ -98,10 +98,10 @@ else
     <nav class="level">
         <button type="button"
             class="button is-link"
-        onclick=changeLogo(swiper,<?php echo json_encode($buildingPhotos); ?>,"<?=$building->getId()?>")
+        onclick=changeLogo(swiper,<?=$building->getId()?>,<?php echo json_encode($buildingPhotos)?>)
         >Установить как обложку здания</button>
         <button type="button" class="button is-danger"
-        onclick=delimage(swiper,<?php echo json_encode($buildingPhotos); ?>,"<?=$building->getId()?>")
+        onclick=delimage(swiper,"<?=$building->getId()?>",<?php echo json_encode($buildingPhotos); ?>)
         >
            Удалить фотографию</button>
     </nav>
